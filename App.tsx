@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import {
   View,
   Text,
@@ -6,12 +6,29 @@ import {
   Modal,
   Image,
   StyleSheet,
+  SafeAreaView,
+  ActivityIndicator,
 } from 'react-native';
+import { useFonts } from 'expo-font';
+import * as SplashScreen from 'expo-splash-screen';
+
+SplashScreen.preventAutoHideAsync();
 
 const QuizApp = () => {
-  const [inactivityTimer, setInactivityTimer] = useState<NodeJS.Timeout | null>(
-    null,
-  );
+  const [fontsLoaded] = useFonts({
+    'Ezra-Regular': require('./assets/fonts/Ezra-Light.otf'),
+  });
+
+  // This function hides the splash screen after fonts are loaded
+  const onLayoutRootView = useCallback(async () => {
+    if (fontsLoaded) {
+      await SplashScreen.hideAsync();
+    }
+  }, [fontsLoaded]);
+
+  // const [inactivityTimer, setInactivityTimer] = useState<NodeJS.Timeout | null>(
+  //   null,
+  // );
   const [currentScreen, setCurrentScreen] = useState<
     | 'telaInicial'
     | 'telaDescanso'
@@ -60,32 +77,31 @@ const QuizApp = () => {
   ];
 
   // Reset inactivity timer (24 hours)
-  const resetInactivityTimer = () => {
-    if (inactivityTimer) clearTimeout(inactivityTimer);
-    setInactivityTimer(
-      setTimeout(() => {
-        setCurrentScreen('telaInicial');
-      }, 86400000),
-    );
-  };
+  // const resetInactivityTimer = () => {
+  //   if (inactivityTimer) clearTimeout(inactivityTimer);
+  //   setInactivityTimer(
+  //     setTimeout(() => {
+  //       setCurrentScreen('telaInicial');
+  //     }, 86400000),
+  //   );
+  // };
 
-  useEffect(() => {
-    resetInactivityTimer();
-  }, []);
+  // useEffect(() => {
+  //   resetInactivityTimer();
+  // }, []);
 
   const selecionarPerguntas = () => {
-    const perguntasSelecionadas = [];
+    const perguntasSelecionadasTemp = [];
     const indicesUsados = new Set();
-
-    while (perguntasSelecionadas.length < 4) {
+    while (perguntasSelecionadasTemp.length < 4) {
       const index = Math.floor(Math.random() * perguntas.length);
       if (!indicesUsados.has(index)) {
         indicesUsados.add(index);
-        perguntasSelecionadas.push(perguntas[index]);
+        perguntasSelecionadasTemp.push(perguntas[index]);
       }
     }
 
-    setPerguntasSelecionadas(perguntasSelecionadas);
+    setPerguntasSelecionadas(perguntasSelecionadasTemp);
   };
 
   const carregarPergunta = () => {
@@ -99,18 +115,27 @@ const QuizApp = () => {
   const handleIniciarQuiz = () => {
     setPerguntaAtual(0);
     selecionarPerguntas();
-    carregarPergunta();
-    console.log('teste:', perguntasSelecionadas);
   };
 
+  useEffect(() => {
+    if (perguntasSelecionadas.length > 0) {
+      carregarPergunta();
+    }
+  }, [perguntasSelecionadas]);
+
+  // Ensure the layout runs the onLayoutRootView function once fonts are loaded
+  if (!fontsLoaded) {
+    return null; // Return null to keep the splash screen visible until fonts are ready
+  }
+
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container} onLayout={onLayoutRootView}>
       {currentScreen === 'telaInicial' && (
         <TouchableOpacity
           style={styles.container}
           onPress={() => setCurrentScreen('telaDescanso')}
         >
-          {/* Top row */}
+          {/* Top Section */}
           <View style={styles.topRow}>
             <View style={styles.square}></View>
             <View style={styles.rectangle}></View>
@@ -124,7 +149,7 @@ const QuizApp = () => {
             />
           </View>
 
-          {/* Conteúdo */}
+          {/* Content Section */}
           <View style={styles.conteudo}>
             <Image
               source={require('./assets/imgs/LOGOTEMA---SUSM 1.png')}
@@ -134,7 +159,7 @@ const QuizApp = () => {
             {/* <View style={styles.lottieIcon}></View> */}
           </View>
 
-          {/* Last row */}
+          {/* Bottom Section */}
           <View style={styles.lastRow}>
             <Image
               source={require('./assets/imgs/wavesblue.png')}
@@ -149,23 +174,42 @@ const QuizApp = () => {
         </TouchableOpacity>
       )}
 
-      {/* {currentScreen === 'telaDescanso' && (
+      {currentScreen === 'telaDescanso' && (
         <View style={styles.containerDescanso}>
+          {/* Top Section */}
           <Image
-            source={require('./assets/imgs/Grafismo4.1.png')}
+            source={require('./assets/imgs/Grafismo4.2.png')}
             style={styles.topImage}
           />
+
+          {/* Content Section */}
           <View style={styles.conteudoDescanso}>
-            <Text style={styles.heading}>ESTROFACTS</Text>
+            <View style={styles.stick}></View>
+            <Text style={styles.heading}>
+              Participe do nosso game e ajude a fazer{'\n'}a diferença!
+            </Text>
             <Text style={styles.descansoFirst}>
-              Bem-vindo ao EstroFacts! Prepare-se para participar de um quiz
-              interativo onde desmistificamos diversas questões sobre o uso de
-              contraceptivos. Juntos, vamos explorar mitos e verdades,
-              aprimorando o cuidado com suas pacientes.
+              Bem-vindo ao EstroFacts!{'\n'}A cada participação, doaremos R$2
+              para uma ONG que está transformando vidas. Além de se divertir,
+              você contribui para uma causa nobre!
             </Text>
-            <Text style={styles.descansoSecond}>
-              Leia as afirmações apresentadas e responda entre FATO ou FAKE
-            </Text>
+            <View style={styles.rulesContainer}>
+              <Text style={styles.headerRules}>Como Funciona?</Text>
+              <View style={styles.headerRulesContainer}>
+                <Text style={styles.headerRules}>1.</Text>
+                <Text style={styles.headerRules}>
+                  Responda as 5 perguntas{'\n'}de vardedeiro ou falso
+                </Text>
+              </View>
+              <View style={styles.headerRulesContainer}>
+                <Text style={styles.headerRules}>2.</Text>
+                <Text style={styles.headerRules}>
+                  Ao final, você poderá{'\n'}conferir o valor já{'\n'}
+                  arrecadado e saber{'\n'}mais sobre a ONG que{'\n'}está
+                  recebendo sua{'\n'}contribuição!
+                </Text>
+              </View>
+            </View>
 
             <TouchableOpacity
               onPress={handleIniciarQuiz}
@@ -175,6 +219,7 @@ const QuizApp = () => {
             </TouchableOpacity>
           </View>
 
+          {/* Images at the Bottom */}
           <View style={styles.bottomImages}>
             <Image
               source={require('./assets/imgs/Group 2.png')}
@@ -190,7 +235,7 @@ const QuizApp = () => {
             />
           </View>
         </View>
-      )} */}
+      )}
 
       {currentScreen === 'telaPergunta' && (
         <View>
@@ -232,7 +277,7 @@ const QuizApp = () => {
           </TouchableOpacity>
         </View>
       </Modal>
-    </View>
+    </SafeAreaView>
   );
 };
 
@@ -241,9 +286,8 @@ export default QuizApp;
 const styles = StyleSheet.create({
   container: {
     height: '100%',
-    // backgroundColor: '#f8e2dd',
     position: 'relative',
-    // paddingTop: 10,
+    fontFamily: 'Ezra-Regular',
   },
   topRow: {
     display: 'flex',
@@ -253,28 +297,28 @@ const styles = StyleSheet.create({
     backgroundColor: '#f8e2dd',
   },
   square: {
-    width: 123,
-    height: 123,
+    width: 153,
+    height: 153,
     backgroundColor: '#da1278',
   },
   rectangle: {
-    width: 208,
-    height: 80,
+    width: 350,
+    height: 93,
     backgroundColor: '#f174ac',
   },
   inicioImage: {
-    height: 80,
-    width: 80,
+    height: 95,
+    width: 95,
     position: 'absolute',
     top: 0,
-    left: 330,
+    left: 503,
   },
   uniqueImage: {
     position: 'absolute',
     top: 50,
-    left: 280,
-    height: 100,
-    width: 100,
+    left: 430,
+    height: 140,
+    width: 140,
     zIndex: 100,
   },
   conteudo: {
@@ -287,8 +331,8 @@ const styles = StyleSheet.create({
   },
   logo: {
     marginLeft: -50,
-    height: 100,
-    width: 300,
+    height: 150,
+    width: 450,
   },
   lottieIcon: {
     width: 250,
@@ -302,14 +346,12 @@ const styles = StyleSheet.create({
     position: 'absolute',
     bottom: 0,
     backgroundColor: '#f8e2dd',
-    // borderTopColor: 'black',
-    // borderTopWidth: 10,
   },
   wavesImage: {
     position: 'absolute',
-    height: 180,
-    width: 120,
-    bottom: 80,
+    height: 210,
+    width: 140,
+    bottom: 105,
     zIndex: 1,
   },
   flexCol: {
@@ -317,12 +359,12 @@ const styles = StyleSheet.create({
     backgroundColor: '#f8e2dd',
   },
   secondRectangle: {
-    width: 280,
-    height: 90,
+    width: 380,
+    height: 120,
     backgroundColor: '#f174ac',
   },
   thirdRectangle: {
-    width: 280,
+    width: 380,
     height: 220,
     backgroundColor: '#cbbed9',
   },
@@ -359,51 +401,84 @@ const styles = StyleSheet.create({
     height: 300,
   },
   containerDescanso: {
-    // flex: 1,
     height: '100%',
-    backgroundColor: '#003366',
+    backgroundColor: '#90b9d3',
     position: 'relative',
+    width: '100%',
+    alignItems: 'center',
   },
   topImage: {
-    width: '100%',
+    position: 'absolute',
+    top: -30,
+    width: 140,
+    height: 140,
     resizeMode: 'contain',
+    alignSelf: 'flex-start',
   },
   conteudoDescanso: {
     position: 'absolute',
-    // top: 406,
-    marginLeft: '13.5%',
-    marginRight: '13.5%',
+    top: 90,
+    width: '80%',
+    alignItems: 'center',
+    // marginTop: 40,
+  },
+  stick: {
+    width: '20%',
+    color: '#512b7d',
+    backgroundColor: '#512b7d',
+    height: 2,
+    position: 'absolute',
+    left: -60,
+    top: 25,
   },
   heading: {
-    fontSize: 63,
-    fontWeight: '600',
-    color: '#660099',
+    fontSize: 35,
+    textAlign: 'left',
+    width: '75%',
+    fontWeight: 'bold',
+    color: '#512b7d',
+    // fontFamily: 'Ezra-Regular',
   },
   descansoFirst: {
-    fontSize: 48,
-    color: '#660099',
+    fontSize: 24,
+    width: '85%',
+    color: '#512b7d',
     marginTop: 10,
+    fontWeight: 'bold',
+    textAlign: 'left',
+    marginLeft: 50,
+    lineHeight: 30,
   },
-  descansoSecond: {
-    fontSize: 50,
-    color: '#333333',
-    marginTop: 10,
-    width: '90%',
+  rulesContainer: {
+    textAlign: 'left',
+    width: '75%',
+    marginTop: 20,
+    gap: 15,
+  },
+  headerRules: {
+    fontSize: 24,
+    color: '#512b7d',
+    fontWeight: 'bold',
+    lineHeight: 30,
+  },
+  headerRulesContainer: {
+    display: 'flex',
+    flexDirection: 'row',
+    gap: 4,
   },
   buttonDescanso: {
-    width: 680,
-    height: 120,
+    width: 350,
+    height: 60,
     borderRadius: 100,
-    backgroundColor: '#FF66B2',
+    backgroundColor: '#da1278',
     justifyContent: 'center',
     alignItems: 'center',
-    borderColor: 'white',
-    borderWidth: 1,
-    marginTop: 20,
+    marginTop: 40,
   },
   buttonTextDescanso: {
-    fontSize: 46,
+    fontSize: 25,
     color: 'white',
+    fontWeight: 'bold',
   },
   bottomImages: {
     position: 'absolute',
@@ -415,17 +490,23 @@ const styles = StyleSheet.create({
   },
   grupo2: {
     position: 'absolute',
-    bottom: 140,
+    bottom: 45,
     left: 0,
+    width: 40,
+    height: 100,
   },
   rectangle2: {
     position: 'absolute',
     bottom: 0,
     left: 0,
+    height: 50,
+    width: '82%',
   },
   unique2: {
     position: 'absolute',
-    right: 0,
-    bottom: 140,
+    right: -35,
+    bottom: -60,
+    width: 130,
+    height: 155,
   },
 });
