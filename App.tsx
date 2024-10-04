@@ -3,10 +3,10 @@ import {
   View,
   Text,
   TouchableOpacity,
-  Modal,
   Image,
   StyleSheet,
   SafeAreaView,
+  ImageBackground,
 } from 'react-native';
 import { useFonts } from 'expo-font';
 import * as SplashScreen from 'expo-splash-screen';
@@ -25,16 +25,15 @@ const QuizApp = () => {
     }
   }, [fontsLoaded]);
 
-  // const [inactivityTimer, setInactivityTimer] = useState<NodeJS.Timeout | null>(
-  //   null,
-  // );
   const [currentScreen, setCurrentScreen] = useState<
     | 'telaInicial'
     | 'telaDescanso'
-    | 'telaPreliminar'
     | 'telaPergunta'
+    | 'telaResposta'
     | 'telaFechamento'
   >('telaInicial');
+  // >('telaResposta');
+  const [currentPose, setCurrentPose] = useState(null);
   const [resultadoTexto, setResultadoTexto] = useState('');
   const [resultadoCor, setResultadoCor] = useState(''); // Use 'green' or 'red'
   const [mostrarRightResult, setMostrarRightResult] = useState(false);
@@ -51,6 +50,8 @@ const QuizApp = () => {
       texto: 'Estrogênio e Progesterona são os principais hormônios femininos.',
       modalImage: require('./assets/imgs/referencia1.png'),
       resposta: 'Verdadeiro',
+      referenceText:
+        'Gynton & Hall. Tratado de Fisiologia Médica.Cap 81, 12ª. Ed.2011',
       explanation:
         'Os estrogênios são produzidos principalmente pelos ovários e possuem a capacidade de estimular o crescimento e a manutenção das características sexuais femininas. A progesterona é produzida no corpo lúteo formado nos ovários e é um modulador chave das funções reprodutivas normais.',
     },
@@ -60,6 +61,8 @@ const QuizApp = () => {
         'Os hormônios dos contraceptivos e terapias de reposição hormonal estão relacionados ao surgimento de câncer.',
       modalImage: require('./assets/imgs/referencia1.png'),
       resposta: 'Falso',
+      referenceText:
+        'https://www.sbmastologia.com.br/anticoncepcionais-aumentam-risco-de-cancerdemama/',
       explanation:
         'Em pesquisa com 1,8 milhões de mulheres usuárias de contraceptivos hormonais realizada na Dinamarca, houve um caso a mais de câncer do que o esperado para cada 7.690 usuárias de anticoncepcionais hormonais. No entanto, os contraceptivos hormonais protegem contra os cânceres de ovário, endométrio e colorretal.',
     },
@@ -68,6 +71,8 @@ const QuizApp = () => {
       texto: 'Hormônios bioidênticos são aqueles retirados do corpo humano',
       modalImage: require('./assets/imgs/referencia1.png'),
       resposta: 'Falso',
+      referenceText:
+        'Pompei, Luciano de Melo; Machado, Rogério Bonassi; Wender, Maria Celeste Osório; Fernandes, César Eduardo. Consenso Brasileiro de Terapêutica Hormonal da Menopausa – Associação Brasileira de Climatério (SOBRAC) – São Paulo:Leitura Médica, 2018.',
       explanation:
         'Hormônios Bioidênticos, substâncias hormonais que possuem exatamente a mesma estrutura química e molecular encontrada nos hormônios produzidos no corpo humano.',
     },
@@ -76,6 +81,7 @@ const QuizApp = () => {
       texto: 'Usar pílula anticoncepcional engorda',
       modalImage: require('./assets/imgs/referencia1.png'),
       resposta: 'Falso',
+      referenceText: 'https://www.endocrino.org.br/hormonios-bioidenticos/',
       explanation:
         'Em revisão de literatura conclui-se não há relação da pílula combinada com o aumento do peso corporal.',
     },
@@ -84,6 +90,8 @@ const QuizApp = () => {
       texto: 'A pílula causa trombose.',
       modalImage: require('./assets/imgs/referencia1.png'),
       resposta: 'Falso',
+      referenceText:
+        'ALBERNAZ, L. M. B.; OLIVEIRA, B. D.; SOARES, A. K. S.; DE SOUZA, J. H. K. O ganho de peso relacionado ao uso do anticoncepcional oral combinado: fato ou mito?. Brazilian Journal of Health Review, [S. l.], v. 6, n. 3, p. 12262–12268, 2023. DOI: 10.34119/bjhrv6n3-302. Disponível em: https://ojs.brazilianjournals.com.br/ojs/index.php/BJHR/article/view/60590. Acesso em: 24 sep. 2024.',
       explanation:
         'Existem estudos que mostram um pequeno aumento no risco de trombose em usuárias de contraceptivos que contenham estrogênio e progesterona. No entanto, esse risco é baixo e, a depender da composição, é muito semelhante ao risco das não usuárias de contraceptivos.',
     },
@@ -92,6 +100,8 @@ const QuizApp = () => {
       texto: 'Hormônios impactam na saúde mental e no humor.',
       modalImage: require('./assets/imgs/referencia1.png'),
       resposta: 'Verdadeiro',
+      referenceText:
+        'Van Hylckama Vlieg A, Helmerhorst FM, Vandenbroucke JP, Doggen CJM, Rosendaal FR. The venous thrombotic risk of oral contraceptives, effects of oestrogen dose and progestogen type: results of the MEGA case-control study. BMJ. 2009;339:b2921.',
       explanation:
         'O uso de contraceptivos hormonais pode levar a alterações de humor.',
     },
@@ -101,6 +111,8 @@ const QuizApp = () => {
         'Quem toma a pílula anticoncepcional por muito tempo pode ficar infértil.',
       modalImage: require('./assets/imgs/referencia1.png'),
       resposta: 'Falso',
+      referenceText:
+        'Reed S, Koro C, DiBello J, et al. Prospective controlled nomegestrol acaetate (2,5mg) and 17β estradiol (1,5mg) (PRO-E2 study): risk of thromoboembolism Eur. J. Contracep Reprod Health Care. 2021; 26(6):439-46.',
       explanation:
         'Não há qualquer comprovação científica de que o uso de contraceptivos hormonais leva à infertilidade, e muitas vezes, eles são usados no tratamento de disfunções hormonais.',
     },
@@ -109,6 +121,8 @@ const QuizApp = () => {
       texto: 'O mesmo método contraceptivo serve para todas as mulheres.',
       modalImage: require('./assets/imgs/referencia1.png'),
       resposta: 'Falso',
+      referenceText:
+        'SANTOS, R. L. dos; BARBOSA, A. de L. de O.; SANTANA, A. L. .; FARIAS, J. V. C.; MACÊDO, P. R. de .; FARIAS, I. C. C. . The risks of prolonged use of hormonal contraceptives. Research, Society and Development, [S. l.], v. 9, n. 11, p. e69791110394, 2020. DOI: 10.33448/rsd-v9i11.10394. Disponível em: https://rsdjournal.org/index.php/rsd/article/view/10394. Acesso em: 24 sep. 2024',
       explanation:
         'O tratamento deve ser individualizado e baseado nas recomendações da Organização Mundial de Saúde.',
     },
@@ -117,6 +131,8 @@ const QuizApp = () => {
       texto: 'A pílula pode ser uma aliada para controlar os sintomas de TPM.',
       modalImage: require('./assets/imgs/referencia1.png'),
       resposta: 'Verdadeiro',
+      referenceText:
+        'https://sbra.com.br/noticias/anticoncepcional-entenda-a-relacao-entre-o-contraceptivo-a-fertilidade-da-mulher/',
       explanation:
         'A pílula, além de prevenir uma gestação indesejada, pode ser utilizada no tratamento de sintomas da TPM e outras doenças.',
     },
@@ -126,6 +142,8 @@ const QuizApp = () => {
         'Existem métodos contraceptivos que ajudam no controle da acne e espinhas.',
       modalImage: require('./assets/imgs/referencia1.png'),
       resposta: 'Verdadeiro',
+      referenceText:
+        'Vieira CS et al. Female hormones and hemostasis. Rev. Bras. Ginecol. Obstet, 2007: 29 (10).',
       explanation:
         'As pílulas com progestagênios antiandrogênicos (que bloqueiam o receptor de testosterona) são usadas no controle da acne.',
     },
@@ -135,6 +153,8 @@ const QuizApp = () => {
         'A Pílula do Dia Seguinte pode ser utilizada toda vez que eu tiver alguma relação sexual.',
       modalImage: require('./assets/imgs/referencia1.png'),
       resposta: 'Falso',
+      referenceText:
+        'WORLD HEALTH ORGANIZATION. Medical eligibility criteria for contraceptive use. 5th ed. Geneva: WHO, 2015.',
       explanation:
         'A pílula do dia seguinte deve ser utilizada caso a mulher tenha uma relação desprotegida ou falha do método contraceptivo utilizado (ex: esqueceu de tomar 2 ou mais pílulas).',
     },
@@ -143,6 +163,8 @@ const QuizApp = () => {
       texto: 'Existem contraceptivos com “hormônio mais natural”.',
       modalImage: require('./assets/imgs/referencia1.png'),
       resposta: 'Verdadeiro',
+      referenceText:
+        'Federação Brasileira das Associações de Ginecologia e Obstetrícia. Manual de anticoncepção. [internet]. São Paulo: FEBRASGO; 2015. [Acesso em 25set/2024].',
       explanation:
         'São os Hormônios Bioidênticos, substâncias hormonais que possuem exatamente a mesma estrutura química e molecular encontrada nos hormônios produzidos no corpo humano.',
     },
@@ -152,6 +174,8 @@ const QuizApp = () => {
         'Ter câncer ou histórico de câncer na família é impeditivo para fazer terapia hormonal?',
       modalImage: require('./assets/imgs/referencia1.png'),
       resposta: 'Falso',
+      referenceText:
+        'Síndrome dos ovários policísticos. 3a ed. São Paulo: Federação Brasileira das Associações de Ginecologia e Obstetrícia (FEBRASGO); 2023. 140p. (Série Orientações e Recomendações FEBRASGO, n.1, Comissão Nacional de Ginecologia Endócrina).',
       explanation:
         'Somente pacientes com cânceres sensíveis ao estrogênio (ex: mama) têm contra-indicação para terapia hormonal. Histórico de câncer na família não contra-indica o tratamento.',
     },
@@ -160,6 +184,8 @@ const QuizApp = () => {
       texto: 'A menopausa só chega após os 50 anos.',
       modalImage: require('./assets/imgs/referencia1.png'),
       resposta: 'Falso',
+      referenceText:
+        'Federação Brasileira das Associações de Ginecologia e Obstetrícia (FEBRASGO). Anticoncepcional hormonal apenas de progestagênio e anticoncepção de emergência. São Paulo: FEBRASGO; 2021. (Protocolo FEBRASGO-Ginecologia, no 66/ Comissão Nacional Especializada em Anticoncepção).',
       explanation:
         'A definição da data da menopausa é feita retrospectivamente, após 12 meses sem sangramento em uma mulher com mais de 45 anos.',
     },
@@ -169,6 +195,8 @@ const QuizApp = () => {
         'Existem muitos efeitos colaterais na terapia de reposição hormonal.',
       modalImage: require('./assets/imgs/referencia1.png'),
       resposta: 'Falso',
+      referenceText:
+        'Machado RB, Pompei LM et al. Consenso Brasileiro de Terapêutica Hormonal da Menopausa – Associação Brasileira de Climatério (SOBRAC) – São Paulo: ALEF Editora, 2024.',
       explanation:
         'Atualmente, a recomendação é iniciar a terapia hormonal com a menor dose efetiva capaz de aliviar os sintomas com menor risco de eventos adversos.',
     },
@@ -177,6 +205,8 @@ const QuizApp = () => {
       texto: 'Terapia de reposição hormonal ajuda a prevenir a osteoporose.',
       modalImage: require('./assets/imgs/referencia1.png'),
       resposta: 'Verdadeiro',
+      referenceText:
+        'Baccaro LF, Paiva LH, Nasser EJ, Valadares AL, Silva CR, Nahas EA, et al. Propedêutica mínima no climatério. FEBRASGO POSITION STATEMENT, 2022: 5.',
       explanation:
         'Os estrogênios inibem a reabsorção óssea, com repercussão importante na massa óssea e no risco de fraturas.',
     },
@@ -186,6 +216,7 @@ const QuizApp = () => {
         'A Fitoterapia pode ajudar a aliviar os sintomas da menopausa tanto quanto a terapia de reposição hormonal.',
       modalImage: require('./assets/imgs/referencia1.png'),
       resposta: 'Falso',
+      referenceText: '',
       explanation:
         'Não há evidência concreta de que os fitoestrogênios efetivamente reduzem os fogachos e suores noturnos em mulheres climatéricas, sendo a terapia hormonal a primeira indicação.',
     },
@@ -195,6 +226,7 @@ const QuizApp = () => {
         'A terapia de reposição hormonal pode aumentar o risco de doenças cardiovasculares em mulheres.',
       modalImage: require('./assets/imgs/referencia1.png'),
       resposta: 'Falso',
+      referenceText: '',
       explanation:
         'A terapia hormonal, quando iniciada até 10 anos após a menopausa ou 60 anos de idade, diminui o risco cardiovascular em mulheres.',
     },
@@ -204,6 +236,7 @@ const QuizApp = () => {
         'Preciso desintoxicar o corpo depois de um período utilizando contraceptivos.',
       modalImage: require('./assets/imgs/referencia1.png'),
       resposta: 'Falso',
+      referenceText: '',
       explanation:
         'Não há nenhum consenso que oriente a necessidade de desintoxicar o corpo após uso de contraceptivos.',
     },
@@ -213,29 +246,59 @@ const QuizApp = () => {
         'A terapia hormonal da menopausa pode ser usada por no máximo 5 anos.',
       modalImage: require('./assets/imgs/referencia1.png'),
       resposta: 'Falso',
+      referenceText: '',
       explanation:
         'Não há um limite fixo ou duração máxima pré-estabelecida para o uso da terapia hormonal e nem mesmo uma idade máxima em que deva ser suspensa.',
     },
   ];
 
-  // Reset inactivity timer (24 hours)
-  // const resetInactivityTimer = () => {
-  //   if (inactivityTimer) clearTimeout(inactivityTimer);
-  //   setInactivityTimer(
-  //     setTimeout(() => {
-  //       setCurrentScreen('telaInicial');
-  //     }, 86400000),
-  //   );
-  // };
+  const poses = [
+    require('./assets/imgs/Pose1.png'),
+    require('./assets/imgs/Pose2.png'),
+    require('./assets/imgs/Pose3.png'),
+    require('./assets/imgs/Pose4.png'),
+    require('./assets/imgs/Pose5.png'),
+  ];
 
-  // useEffect(() => {
-  //   resetInactivityTimer();
-  // }, []);
+  // Function to determine the pose to show based on the response
+  let lastPose: null = null; // Variable to store the pose for the last question
+
+  // Modify your getPoseForCurrentQuestion function
+  const getPoseForCurrentQuestion = useCallback(() => {
+    // If we already have a pose for this question, return it
+    if (currentPose) return currentPose;
+
+    // Check if perguntasSelecionadas is empty or perguntaAtual is out of bounds
+    if (
+      perguntasSelecionadas.length === 0 ||
+      perguntaAtual >= perguntasSelecionadas.length
+    ) {
+      return poses[0]; // Return a default pose
+    }
+
+    const currentResponse = perguntasSelecionadas[perguntaAtual].resposta;
+    let availablePoses = [...poses];
+
+    if (currentResponse === 'Falso') {
+      availablePoses = poses.filter((pose) => pose !== poses[1]); // Exclude Pose2
+    }
+
+    // Select a random pose that's different from the last one
+    let randomPose;
+    do {
+      const randomIndex = Math.floor(Math.random() * availablePoses.length);
+      randomPose = availablePoses[randomIndex];
+    } while (randomPose === lastPose && availablePoses.length > 1);
+
+    lastPose = randomPose;
+    setCurrentPose(randomPose); // Store the selected pose in state
+    return randomPose;
+  }, [perguntaAtual, currentPose, perguntasSelecionadas]);
 
   const selecionarPerguntas = () => {
     const perguntasSelecionadasTemp = [];
     const indicesUsados = new Set();
-    while (perguntasSelecionadasTemp.length < 4) {
+    while (perguntasSelecionadasTemp.length < 5) {
       const index = Math.floor(Math.random() * perguntas.length);
       if (!indicesUsados.has(index)) {
         indicesUsados.add(index);
@@ -249,30 +312,25 @@ const QuizApp = () => {
   const carregarPergunta = () => {
     setMostrarRightResult(false);
     setMostrarWrongResult(false);
-    if (perguntaAtual < perguntasSelecionadas.length) {
+    if (perguntaAtual + 1 < perguntasSelecionadas.length) {
+      // setPerguntaAtual(perguntaAtual + 1);
       setCurrentScreen('telaPergunta');
     } else {
+      setPerguntaAtual(0);
       setCurrentScreen('telaFechamento');
     }
   };
 
   const verificarResposta = (resposta: any) => {
-    console.log(
-      'resposta:',
-      perguntasSelecionadas[perguntaAtual].resposta,
-      resposta,
-    );
     const isCorrect =
       resposta === perguntasSelecionadas[perguntaAtual].resposta;
 
     if (isCorrect) {
-      console.log(true);
       setResultadoTexto('Resposta Correta');
       setResultadoCor('green');
       setMostrarRightResult(true);
       setMostrarWrongResult(false);
     } else {
-      console.log(false);
       setResultadoTexto('Resposta Errada');
       setResultadoCor('red');
       setMostrarRightResult(false);
@@ -282,21 +340,9 @@ const QuizApp = () => {
     // Move to the next question after 2 seconds
     setTimeout(() => {
       if (perguntaAtual + 1 === perguntasSelecionadas.length) {
-        const respostaId = perguntasSelecionadas[perguntaAtual].id;
-        // setCurrentScreen(`tela-resposta${respostaId}`);
-        // showScreen(`tela-resposta${respostaId}`)
-        // const lastButtonId = `btn-continuar${perguntasSelecionadas[perguntaAtual].id}`
-        // const lastButton = document.getElementById(lastButtonId)
-        // if (lastButton) {
-        //   lastButton.innerText = "Fim"
-        //   perguntaAtual++
-        // }
-        // Replace the text for the last question button to "Fim"
-        setPerguntaAtual(perguntaAtual + 1);
+        setCurrentScreen(`telaResposta`);
       } else {
-        const respostaId = perguntasSelecionadas[perguntaAtual].id;
-        // setCurrentScreen(`tela-resposta${respostaId}`);
-        setPerguntaAtual(perguntaAtual + 1);
+        setCurrentScreen(`telaResposta`);
       }
       setMostrarRightResult(false);
       setMostrarWrongResult(false);
@@ -307,6 +353,10 @@ const QuizApp = () => {
     setPerguntaAtual(0);
     selecionarPerguntas();
   };
+
+  useEffect(() => {
+    setCurrentPose(null);
+  }, [perguntaAtual]);
 
   useEffect(() => {
     if (perguntasSelecionadas.length > 0) {
@@ -321,6 +371,7 @@ const QuizApp = () => {
 
   return (
     <SafeAreaView style={styles.container} onLayout={onLayoutRootView}>
+      {/* <SafeAreaView style={styles.container} onLayout={onLayoutRootView}> */}
       {currentScreen === 'telaInicial' && (
         <TouchableOpacity
           style={styles.container}
@@ -542,26 +593,111 @@ const QuizApp = () => {
         </View>
       )}
 
+      {currentScreen === 'telaResposta' && (
+        <View style={{ backgroundColor: '#cbbdda', height: '100%' }}>
+          <View style={styles.flexContainerResponse}>
+            <Image
+              style={styles.pinkSquareResponse}
+              source={require('./assets/imgs/Rectangle 12377.png')}
+            />
+            <Image
+              style={styles.rectangleResponse}
+              source={require('./assets/imgs/Rectangle 12379.png')}
+            />
+            <Image
+              style={styles.uniqueResponse}
+              source={require('./assets/imgs/sou-unica5.png')}
+            />
+          </View>
+          <View style={styles.dash}></View>
+          <View style={styles.conteudoResposta}>
+            <Text style={styles.answerResposta}>
+              {perguntasSelecionadas[perguntaAtual].resposta}
+            </Text>
+            <Text style={styles.explanation}>
+              {perguntasSelecionadas[perguntaAtual].explanation}
+            </Text>
+            <Image
+              style={styles.pose}
+              source={currentPose || getPoseForCurrentQuestion()}
+            />
+            <TouchableOpacity
+              style={styles.buttonReference}
+              onPress={() => {
+                if (perguntasSelecionadas.length > 0 && !currentPose) {
+                  getPoseForCurrentQuestion();
+                }
+                setModalVisible(true);
+              }}
+            >
+              <ImageBackground
+                source={require('./assets/imgs/Group 5.png')}
+                style={styles.backgroundImage}
+              >
+                <View style={styles.containerTextReference}>
+                  <Text style={styles.buttonTextReference}>Referências</Text>
+                </View>
+              </ImageBackground>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={styles.nextQuestionButton}
+              onPress={() => {
+                setPerguntaAtual(perguntaAtual + 1);
+                setCurrentPose(null); // Reset the pose for the new question
+                carregarPergunta();
+              }}
+            >
+              <Text style={{ color: '#fff', fontSize: 30, fontWeight: 'bold' }}>
+                {perguntaAtual + 1 < perguntasSelecionadas.length
+                  ? 'Próxima Pergunta'
+                  : 'Fim'}
+              </Text>
+            </TouchableOpacity>
+          </View>
+          <View style={styles.footer}>
+            <Text style={{ fontWeight: '600', fontSize: 11, color: '#333' }}>
+              Setembro/2024
+            </Text>
+            <Text style={{ fontWeight: '600', fontSize: 11, color: '#333' }}>
+              - Material destinado a profissionais de saúde habilitados a
+              dispensar e/ou prescrever medicamentos.
+            </Text>
+            <Text style={{ fontWeight: '600', fontSize: 11, color: '#333' }}>
+              - Este material é de uso exclusivo, sem autorização de postagem
+              e/ou compartilhamento.
+            </Text>
+          </View>
+        </View>
+      )}
+
       {currentScreen === 'telaFechamento' && (
         <View>
           <Text style={styles.title}>Quiz Concluído!</Text>
         </View>
       )}
 
-      <Modal visible={modalVisible} transparent={true}>
-        <View style={styles.modalContainer}>
-          <Image
-            source={perguntasSelecionadas[perguntaAtual]?.modalImage}
-            style={styles.modalImage}
-          />
-          <TouchableOpacity
-            // style={styles.button}
-            onPress={() => setModalVisible(false)}
-          >
-            <Text style={styles.buttonText}>Fechar</Text>
-          </TouchableOpacity>
+      {modalVisible && (
+        <View style={styles.referenceOverlay}>
+          <View style={styles.referenceContent}>
+            <TouchableOpacity
+              onPress={() => setModalVisible(false)}
+              style={styles.closeXButton}
+            >
+              <Text style={styles.xText}>X</Text>
+            </TouchableOpacity>
+            <Text style={styles.referenceTitle}>Referências:</Text>
+            <Text style={styles.referenceText}>
+              {perguntasSelecionadas[perguntaAtual].referenceText}
+            </Text>
+            <TouchableOpacity
+              style={styles.closeButton}
+              onPress={() => setModalVisible(false)}
+            >
+              <Text style={styles.closeButtonText}>Fechar</Text>
+            </TouchableOpacity>
+          </View>
         </View>
-      </Modal>
+      )}
     </SafeAreaView>
   );
 };
@@ -691,15 +827,78 @@ const styles = StyleSheet.create({
     fontSize: 24,
     fontWeight: 'bold',
   },
-  modalContainer: {
-    flex: 1,
+  //Modal
+  referenceOverlay: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    zIndex: 1000,
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: 'rgba(0, 0, 0, 0.5)',
   },
-  modalImage: {
-    width: 300,
-    height: 300,
+  referenceContent: {
+    backgroundColor: '#cbbdda',
+    padding: 20,
+    borderRadius: 10,
+    width: '90%',
+    maxWidth: 400,
+  },
+  closeXButton: {
+    position: 'absolute',
+    top: -10,
+    right: -15,
+    width: 40,
+    height: 40,
+    borderRadius: 20,
+    backgroundColor: '#511181',
+    justifyContent: 'center',
+    alignItems: 'center',
+    zIndex: 1,
+    elevation: 5,
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+  },
+  xText: {
+    color: 'white',
+    fontSize: 14,
+    fontWeight: 'bold',
+    textAlign: 'center',
+    lineHeight: 30,
+  },
+  referenceTitle: {
+    color: '#333',
+    fontSize: 18,
+    fontWeight: 'bold',
+    marginBottom: 15,
+  },
+  referenceText: {
+    color: '#333',
+    fontSize: 14,
+    marginBottom: 10,
+  },
+  closeButton: {
+    backgroundColor: '#511181',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: 35,
+    paddingHorizontal: 40,
+    padding: 10,
+    alignSelf: 'center',
+    marginTop: 20,
+  },
+  closeButtonText: {
+    color: 'white',
+    fontSize: 16,
+    fontWeight: 'bold',
   },
   //TELA DESCANSO
   containerDescanso: {
@@ -917,5 +1116,106 @@ const styles = StyleSheet.create({
     right: 0,
     width: 315,
     height: 25,
+  },
+  //TELA RESPOSTA
+  flexContainerResponse: {
+    display: 'flex',
+    flexDirection: 'row',
+  },
+  pinkSquareResponse: {
+    width: 120,
+    height: 60,
+  },
+  rectangleResponse: {
+    width: '100%',
+    height: 20,
+  },
+  uniqueResponse: {
+    width: 160,
+    height: 100,
+    position: 'absolute',
+    right: 80,
+    top: 0,
+  },
+  answerResposta: {
+    fontSize: 40,
+    fontWeight: 'bold',
+    color: '#511181',
+    marginBottom: 10,
+  },
+  explanation: {
+    fontSize: 22,
+    lineHeight: 32,
+    color: '#511181',
+    width: '65%',
+  },
+  conteudoResposta: {
+    paddingTop: 30,
+    height: '100%',
+    marginHorizontal: '10%',
+  },
+  nextQuestionButton: {
+    position: 'absolute',
+    bottom: 130,
+    width: '100%',
+    height: 65,
+    fontSize: 46,
+    backgroundColor: '#511181',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: 35,
+    paddingHorizontal: 40,
+  },
+  dash: {
+    width: '18%',
+    color: '#512b7d',
+    backgroundColor: '#512b7d',
+    height: 3,
+    position: 'absolute',
+    left: -60,
+    top: 115,
+  },
+  footer: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    position: 'absolute',
+    textAlign: 'center',
+    bottom: 10,
+    width: '100%',
+    lineHeight: 20,
+  },
+  pose: {
+    position: 'absolute',
+    right: -150,
+    bottom: 200,
+    width: 400,
+    height: 500,
+  },
+  buttonReference: {
+    width: 200,
+    height: 52,
+    justifyContent: 'center',
+    marginTop: 10,
+  },
+  backgroundImage: {
+    justifyContent: 'center',
+    height: 52,
+  },
+  containerTextReference: {
+    backgroundColor: '#c1b1d2',
+    // backgroundColor: 'black',
+    height: 35,
+    zIndex: -1,
+    marginLeft: 45,
+    paddingLeft: 12,
+    display: 'flex',
+    justifyContent: 'center',
+  },
+  buttonTextReference: {
+    color: '#511181',
+    fontSize: 18,
+    fontWeight: 'bold',
   },
 });
