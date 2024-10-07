@@ -671,9 +671,81 @@ const QuizApp = () => {
       )}
 
       {currentScreen === 'telaFechamento' && (
-        <View>
-          <Text style={styles.title}>Quiz Concluído!</Text>
-        </View>
+        <TouchableOpacity
+          style={styles.container}
+          onPress={() => setCurrentScreen('telaInicial')}
+        >
+          {/* Top Section */}
+          <View style={styles.topRow}>
+            <View style={styles.rectangleFechamento}></View>
+            <Image
+              source={require('./assets/imgs/Grafismo.png')}
+              style={styles.inicioImageFechamento}
+            />
+            <Image
+              source={require('./assets/imgs/sou-unica.png')}
+              style={styles.uniqueImageFechamento}
+            />
+          </View>
+
+          {/* Content Section */}
+          <View style={styles.conteudoFechamento}>
+            <View style={styles.fechamentoStick}></View>
+            <Image
+              source={require('./assets/imgs/LOGOTEMA---SUSM 1.png')}
+              style={styles.logoFechamento}
+            />
+
+            <View style={styles.conteudoTextoFechamento}>
+              <Text style={styles.textoObrigado}>
+                Obrigado por jogar e contribuir para um mundo melhor!
+              </Text>
+            </View>
+
+            <View style={styles.arrecadadosContainer}>
+              <Text style={{ color: '#7e458c', fontWeight: 'bold' }}>
+                Já arrecadados
+              </Text>
+              <View style={styles.arrecadasdosNumberContainer}>
+                <Text style={styles.arrecadadosNumber}>00.000,00</Text>
+              </View>
+            </View>
+
+            <View style={styles.qrCodeContainer}>
+              <Image
+                style={styles.qrCodeImage}
+                source={require('./assets/imgs/qrCode.png')}
+              />
+              <Text style={styles.qrCodeText}>
+                Caso queira saber mais sobre a ONG que estamos ajudando acesse
+                pelo QR CODE
+              </Text>
+            </View>
+
+            <View style={styles.footerFechamento}>
+              <Text style={{ fontWeight: '600', fontSize: 11, color: '#333' }}>
+                Setembro/2024
+              </Text>
+              <Text style={{ fontWeight: '600', fontSize: 11, color: '#333' }}>
+                - Material destinado a profissionais de saúde habilitados a
+                dispensar e/ou prescrever medicamentos.
+              </Text>
+              <Text style={{ fontWeight: '600', fontSize: 11, color: '#333' }}>
+                - Este material é de uso exclusivo, sem autorização de postagem
+                e/ou compartilhamento.
+              </Text>
+            </View>
+          </View>
+
+          {/* Bottom Section */}
+          <View style={styles.lastColFechamento}>
+            <View style={styles.thirdSquare}></View>
+            <View style={styles.flexRowFechamento}>
+              <View style={styles.fourthRectangle}></View>
+              <View style={styles.fifthRectangle}></View>
+            </View>
+          </View>
+        </TouchableOpacity>
       )}
 
       {modalVisible && (
@@ -1217,5 +1289,139 @@ const styles = StyleSheet.create({
     color: '#511181',
     fontSize: 18,
     fontWeight: 'bold',
+  },
+  //TELA FECHAMENTO
+  uniqueImageFechamento: {
+    position: 'absolute',
+    top: 20,
+    left: 490,
+    height: 140,
+    width: 140,
+    zIndex: 100,
+  },
+  inicioImageFechamento: {
+    height: 95,
+    width: 95,
+    position: 'absolute',
+    top: 0,
+    left: 0,
+  },
+  rectangleFechamento: {
+    width: 510,
+    height: 93,
+    marginLeft: 95,
+    backgroundColor: '#f174ac',
+  },
+  conteudoFechamento: {
+    height: '75%',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    position: 'relative',
+    backgroundColor: '#f8e2dd',
+    gap: 30,
+    zIndex: -1,
+  },
+  logoFechamento: {
+    marginLeft: -50,
+    height: 110,
+    width: 315,
+    marginBottom: 20,
+  },
+  conteudoTextoFechamento: {
+    marginHorizontal: '25%',
+  },
+  textoObrigado: {
+    fontSize: 32,
+    fontWeight: 'bold',
+    alignSelf: 'center',
+    textAlign: 'left',
+    color: '#7e458c',
+  },
+  arrecadadosContainer: {
+    display: 'flex',
+    flexDirection: 'column',
+    gap: 10,
+    alignItems: 'flex-start',
+    width: '48%',
+  },
+  arrecadasdosNumberContainer: {
+    backgroundColor: '#cbbdda',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingTop: 10,
+    paddingBottom: 10,
+    paddingHorizontal: 30,
+  },
+  arrecadadosNumber: {
+    color: '#7e458c',
+    fontSize: 40,
+    fontWeight: 'bold',
+  },
+  qrCodeContainer: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginHorizontal: '8%',
+    gap: 20,
+    marginBottom: 80,
+  },
+  qrCodeImage: {
+    height: 85,
+    width: 85,
+  },
+  qrCodeText: {
+    fontSize: 14,
+    color: '#7e458c',
+    fontWeight: 'bold',
+    width: '25%',
+    marginTop: 10,
+  },
+  lastColFechamento: {
+    display: 'flex',
+    flexDirection: 'column',
+    height: '15%',
+    position: 'absolute',
+    bottom: 0,
+  },
+  thirdSquare: {
+    backgroundColor: '#dc0474',
+    height: 30,
+    width: 600,
+  },
+  flexRowFechamento: {
+    display: 'flex',
+    flexDirection: 'row',
+  },
+  fourthRectangle: {
+    backgroundColor: '#90b9d2',
+    height: 110,
+    width: 400,
+  },
+  fifthRectangle: {
+    backgroundColor: '#cbbdda',
+    height: 110,
+    width: 500,
+  },
+  fechamentoStick: {
+    position: 'absolute',
+    width: '28%',
+    color: '#512b7d',
+    backgroundColor: '#512b7d',
+    height: 3,
+    left: -60,
+    top: 250,
+  },
+  footerFechamento: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    position: 'absolute',
+    textAlign: 'center',
+    bottom: 30,
+    width: '100%',
+    lineHeight: 20,
   },
 });
