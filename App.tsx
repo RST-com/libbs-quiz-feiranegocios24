@@ -7,6 +7,7 @@ import {
   StyleSheet,
   SafeAreaView,
   ImageBackground,
+  TextInput,
 } from 'react-native';
 import { useFonts } from 'expo-font';
 import * as SplashScreen from 'expo-splash-screen';
@@ -25,17 +26,20 @@ const QuizApp = () => {
     }
   }, [fontsLoaded]);
 
+  const [inactivityTimer, setInactivityTimer] = useState<NodeJS.Timeout | null>(
+    null,
+  );
+
   const [currentScreen, setCurrentScreen] = useState<
     | 'telaInicial'
     | 'telaDescanso'
     | 'telaPergunta'
     | 'telaResposta'
     | 'telaFechamento'
+    | 'telaGestao'
   >('telaInicial');
-  // >('telaResposta');
   const [currentPose, setCurrentPose] = useState(null);
   const [resultadoTexto, setResultadoTexto] = useState('');
-  const [resultadoCor, setResultadoCor] = useState(''); // Use 'green' or 'red'
   const [mostrarRightResult, setMostrarRightResult] = useState(false);
   const [mostrarWrongResult, setMostrarWrongResult] = useState(false);
   const [perguntaAtual, setPerguntaAtual] = useState(0);
@@ -43,6 +47,8 @@ const QuizApp = () => {
     Array<any>
   >([]);
   const [modalVisible, setModalVisible] = useState(false);
+  const [accumulatedValue, setAccumulatedValue] = useState(0);
+  const [temporaryValue, setTemporaryValue] = useState(accumulatedValue);
 
   const perguntas = [
     {
@@ -327,15 +333,16 @@ const QuizApp = () => {
 
     if (isCorrect) {
       setResultadoTexto('Resposta Correta');
-      setResultadoCor('green');
       setMostrarRightResult(true);
       setMostrarWrongResult(false);
     } else {
       setResultadoTexto('Resposta Errada');
-      setResultadoCor('red');
       setMostrarRightResult(false);
       setMostrarWrongResult(true);
     }
+
+    // Add 2 reais to the counter for each round
+    setAccumulatedValue((prevValue) => prevValue + 2);
 
     // Move to the next question after 2 seconds
     setTimeout(() => {
@@ -354,9 +361,24 @@ const QuizApp = () => {
     selecionarPerguntas();
   };
 
+  const resetInactivityTimer = () => {
+    if (inactivityTimer) clearTimeout(inactivityTimer);
+    setInactivityTimer(
+      setTimeout(() => {
+        setCurrentScreen('telaInicial');
+      }, 60000),
+    );
+  };
+
   useEffect(() => {
     setCurrentPose(null);
   }, [perguntaAtual]);
+
+  useEffect(() => {
+    if (currentScreen === 'telaFechamento') {
+      resetInactivityTimer();
+    }
+  }, [currentScreen]);
 
   useEffect(() => {
     if (perguntasSelecionadas.length > 0) {
@@ -413,6 +435,10 @@ const QuizApp = () => {
             </View>
             <View style={styles.secondSquare}></View>
           </View>
+          <TouchableOpacity
+            style={styles.gestaoButton}
+            onPress={() => setCurrentScreen('telaGestao')}
+          ></TouchableOpacity>
         </TouchableOpacity>
       )}
 
@@ -476,6 +502,10 @@ const QuizApp = () => {
               style={styles.unique2}
             />
           </View>
+          <TouchableOpacity
+            style={styles.voltarButton}
+            onPress={() => setCurrentScreen('telaInicial')}
+          ></TouchableOpacity>
         </View>
       )}
 
@@ -545,8 +575,6 @@ const QuizApp = () => {
                       color: '#7dc4aa',
                     }}
                   >
-                    {/* )} */}
-                    {/* <Text id="#resultado" style={styles.resultado}> */}
                     {resultadoTexto}
                   </Text>
                 </>
@@ -569,8 +597,6 @@ const QuizApp = () => {
                       color: '#c24242',
                     }}
                   >
-                    {/* )} */}
-                    {/* <Text id="#resultado" style={styles.resultado}> */}
                     {resultadoTexto}
                   </Text>
                 </>
@@ -590,6 +616,10 @@ const QuizApp = () => {
             style={styles.rectangle25}
             source={require('./assets/imgs/Rectangle 25.png')}
           />
+          <TouchableOpacity
+            style={styles.voltarButton}
+            onPress={() => setCurrentScreen('telaInicial')}
+          ></TouchableOpacity>
         </View>
       )}
 
@@ -667,6 +697,10 @@ const QuizApp = () => {
               e/ou compartilhamento.
             </Text>
           </View>
+          <TouchableOpacity
+            style={styles.voltarButton}
+            onPress={() => setCurrentScreen('telaInicial')}
+          ></TouchableOpacity>
         </View>
       )}
 
@@ -707,7 +741,10 @@ const QuizApp = () => {
                 Já arrecadados
               </Text>
               <View style={styles.arrecadasdosNumberContainer}>
-                <Text style={styles.arrecadadosNumber}>00.000,00</Text>
+                {/* //CONTADOR */}
+                <Text style={styles.arrecadadosNumber}>
+                  {accumulatedValue.toFixed(2)}
+                </Text>
               </View>
             </View>
 
@@ -748,6 +785,88 @@ const QuizApp = () => {
         </TouchableOpacity>
       )}
 
+      {currentScreen === 'telaGestao' && (
+        <View style={styles.gestaoContainer}>
+          <Text style={{ color: '#511181', fontSize: 20, fontWeight: 'bold' }}>
+            Valor Contador
+          </Text>
+          <TextInput
+            style={styles.input}
+            placeholder="Valor Contador"
+            keyboardType="number-pad"
+            onChangeText={(value: string) => {
+              // Use regex to allow only numbers
+              const numericValue = value.replace(/[^0-9]/g, '');
+              const numberValue = Number(numericValue);
+
+              // Ensure only numbers greater than 0 are accepted
+              if (numberValue > 0) {
+                setTemporaryValue(numberValue);
+              } else {
+                setTemporaryValue(0); // Reset or ignore invalid input
+              }
+            }}
+          />
+
+          <TouchableOpacity
+            style={{
+              height: 65,
+              width: '40%',
+              backgroundColor: '#4CAF50',
+              alignItems: 'center',
+              justifyContent: 'center',
+              borderRadius: 5,
+              paddingHorizontal: 5,
+              marginVertical: 10,
+            }}
+            onPress={() => [
+              setAccumulatedValue(temporaryValue),
+              setCurrentScreen('telaInicial'),
+            ]}
+          >
+            <Text style={{ color: '#fff', fontSize: 20, fontWeight: 'bold' }}>
+              Atualizar Contador
+            </Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={{
+              height: 65,
+              width: '40%',
+              backgroundColor: '#511181',
+              alignItems: 'center',
+              justifyContent: 'center',
+              borderRadius: 5,
+              paddingHorizontal: 5,
+              marginBottom: 10,
+            }}
+            onPress={() => [
+              setAccumulatedValue(0),
+              setCurrentScreen('telaInicial'),
+            ]}
+          >
+            <Text style={{ color: '#fff', fontSize: 20, fontWeight: 'bold' }}>
+              Resetar Contador
+            </Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={{
+              height: 65,
+              width: '40%',
+              backgroundColor: '#c2bbd0',
+              alignItems: 'center',
+              justifyContent: 'center',
+              borderRadius: 5,
+              paddingHorizontal: 5,
+            }}
+            onPress={() => setCurrentScreen('telaInicial')}
+          >
+            <Text style={{ color: '#000', fontSize: 17, fontWeight: 'bold' }}>
+              Voltar para a página inicial
+            </Text>
+          </TouchableOpacity>
+        </View>
+      )}
+
       {modalVisible && (
         <View style={styles.referenceOverlay}>
           <View style={styles.referenceContent}>
@@ -781,6 +900,46 @@ const styles = StyleSheet.create({
     height: '100%',
     position: 'relative',
     fontFamily: 'Ezra-Regular',
+  },
+  //TELA GESTAO
+  gestaoContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: 20,
+    backgroundColor: '#f8e2dd',
+  },
+  input: {
+    width: '30%',
+    padding: 10,
+    borderWidth: 1,
+    borderColor: '#ccc',
+    borderRadius: 5,
+    marginVertical: 10,
+    backgroundColor: '#fff',
+    fontSize: 16,
+  },
+  //BOTAO OCULTO VOLTAR
+  voltarButton: {
+    position: 'absolute',
+    top: 2,
+    left: 2,
+    // backgroundColor: '#ccc',
+    backgroundColor: 'transparent',
+    padding: 25,
+    borderRadius: 15,
+    zIndex: 1,
+  },
+  //BOTAO OCULTO GESTAO
+  gestaoButton: {
+    position: 'absolute',
+    top: 2,
+    right: 2,
+    // backgroundColor: '#ccc',
+    backgroundColor: 'transparent',
+    padding: 25,
+    borderRadius: 15,
+    zIndex: 1,
   },
   //TELA INICIAL
   topRow: {
