@@ -616,7 +616,8 @@ const QuizApp = () => {
       )}
 
       {currentScreen === 'telaResposta' && (
-        <View style={{ backgroundColor: '#cbbdda', height: '100%' }}>
+        <View style={{ backgroundColor: '#cbbdda', height: '103%' }}>
+          {/* <View style={{ backgroundColor: '#cbbdda', height: '100%' }}> */}
           <View style={styles.flexContainerResponse}>
             <Image
               style={styles.pinkSquareResponse}
@@ -634,18 +635,18 @@ const QuizApp = () => {
           <View style={styles.dash}></View>
           <View style={styles.conteudoResposta}>
             <Text style={styles.answerResposta}>
-              {/* Falso */}
-              {perguntasSelecionadas[perguntaAtual].resposta}
+              Falso
+              {/* {perguntasSelecionadas[perguntaAtual].resposta} */}
             </Text>
             <Text style={styles.explanation}>
-              {/* Em pesquisa com 1,8 milhões de mulheres usuárias de contraceptivos
+              Em pesquisa com 1,8 milhões de mulheres usuárias de contraceptivos
               hormonais realizada na Dinamarca, houve um caso a mais de câncer
               do que o esperado para cada 7.690 usuárias de anticoncepcionais
               hormonais. No entanto, os contraceptivos hormonais protegem contra
               os cânceres de ovário, endométrio e colorretal.2 O risco de câncer
               de mama associado ao uso da terapia hormonal é pequeno, com
-              incidência anual de menos de um caso por 1.000 mulheres. */}
-              {perguntasSelecionadas[perguntaAtual].explanation}
+              incidência anual de menos de um caso por 1.000 mulheres.
+              {/* {perguntasSelecionadas[perguntaAtual].explanation} */}
             </Text>
             <TouchableOpacity
               style={styles.buttonReference}
@@ -721,6 +722,10 @@ const QuizApp = () => {
               e/ou compartilhamento.
             </Text>
           </View>
+          <Image
+            style={styles.rectangleResponse2}
+            source={require('./assets/imgs/Rectangle 12379.png')}
+          />
           <TouchableOpacity
             style={styles.voltarButton}
             onPress={() => setCurrentScreen('telaInicial')}
@@ -950,6 +955,7 @@ const styles = StyleSheet.create({
   container: {
     height: '100%',
     position: 'relative',
+    marginTop: -15,
     // fontFamily: 'EzraRegular',
   },
   //TELA GESTAO
@@ -1060,7 +1066,8 @@ const styles = StyleSheet.create({
     position: 'absolute',
     height: 210,
     width: 140,
-    bottom: 120,
+    bottom: 105,
+    // bottom: 120,
     zIndex: 1,
   },
   flexCol: {
@@ -1070,13 +1077,15 @@ const styles = StyleSheet.create({
   secondRectangle: {
     // width: 380,
     width: 480,
-    height: 124,
+    height: 140,
+    // height: 124,
     backgroundColor: '#f174ac',
   },
   thirdRectangle: {
     // width: 380,
     width: 480,
-    height: 124,
+    height: 140,
+    // height: 124,
     backgroundColor: '#cbbed9',
   },
   secondSquare: {
@@ -1202,7 +1211,8 @@ const styles = StyleSheet.create({
   },
   //TELA DESCANSO
   containerDescanso: {
-    height: '100%',
+    height: '103%',
+    // height: '100%',
     backgroundColor: '#90b9d3',
     position: 'relative',
     width: '100%',
@@ -1223,7 +1233,8 @@ const styles = StyleSheet.create({
   conteudoDescanso: {
     position: 'absolute',
     // top: 90,
-    top: 180,
+    // top: 180,
+    top: 160,
     width: '95%',
     alignItems: 'center',
   },
@@ -1237,19 +1248,20 @@ const styles = StyleSheet.create({
     top: 28,
   },
   heading: {
-    fontSize: 40,
-    // fontSize: 35,
+    // fontSize: 40,
+    fontSize: 35,
     textAlign: 'left',
     width: '65%',
-    // width: '75%',
+    // width: '73%',
     color: '#512b7d',
     fontFamily: 'EzraSemiBold',
-    lineHeight: 60,
+    // lineHeight: 60,
+    lineHeight: 50,
   },
   descansoFirst: {
     fontFamily: 'EzraSemiBold',
-    fontSize: 30,
-    // fontSize: 24,
+    fontSize: 25,
+    // fontSize: 30,
     width: '71%',
     // width: '85%',
     color: '#512b7d',
@@ -1264,14 +1276,13 @@ const styles = StyleSheet.create({
   rulesContainer: {
     textAlign: 'left',
     width: '64%',
-    // width: '75%',
-    marginTop: 60,
-    // marginTop: 20,
+    marginTop: 40,
+    // marginTop: 60,
     gap: 15,
   },
   headerRules: {
-    fontSize: 30,
-    // fontSize: 24,
+    fontSize: 25,
+    // fontSize: 30,
     color: '#512b7d',
     // fontWeight: 'bold',
     lineHeight: 30,
@@ -1322,16 +1333,19 @@ const styles = StyleSheet.create({
   },
   rectangle2: {
     position: 'absolute',
-    bottom: 0,
+    bottom: -10,
+    // bottom: 0,
     left: 0,
-    height: 50,
+    height: 60,
+    // height: 50,
     width: '87%',
     // width: '82%',
   },
   unique2: {
     position: 'absolute',
     right: -35,
-    bottom: -60,
+    bottom: -15,
+    // bottom: -60,
     width: 130,
     height: 155,
   },
@@ -1430,7 +1444,7 @@ const styles = StyleSheet.create({
   },
   graphism5: {
     position: 'absolute',
-    bottom: 0,
+    bottom: -10,
     left: 0,
     width: 140,
     // width: 100,
@@ -1452,12 +1466,12 @@ const styles = StyleSheet.create({
   },
   rectangle25: {
     position: 'absolute',
-    bottom: 0,
+    bottom: -15,
     right: 0,
     width: 405,
     // width: 315,
-    height: 35,
-    // height: 25,
+    height: 50,
+    // height: 35,
   },
   //TELA RESPOSTA
   flexContainerResponse: {
@@ -1465,23 +1479,31 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
   },
   pinkSquareResponse: {
-    width: 140,
+    width: 100,
     // width: 120,
-    height: 80,
+    height: 85,
     // height: 60,
   },
   rectangleResponse: {
     width: '100%',
-    height: 20,
+    height: 40,
+    // height: 20,
+  },
+  rectangleResponse2: {
+    width: '100%',
+    height: 40,
+    position: 'absolute',
+    bottom: 0,
+    // height: 20,
   },
   uniqueResponse: {
-    width: 250,
-    // width: 160,
-    height: 152,
-    // height: 100,
+    width: 186,
+    // width: 250,
+    height: 113,
+    // height: 152,
     position: 'absolute',
     right: 80,
-    top: 0,
+    top: 20,
   },
   answerResposta: {
     fontSize: 40,
@@ -1510,7 +1532,7 @@ const styles = StyleSheet.create({
   },
   nextQuestionButton: {
     position: 'absolute',
-    bottom: 160,
+    bottom: 200,
     width: '100%',
     height: 75,
     // height: 65,
@@ -1539,7 +1561,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     position: 'absolute',
     textAlign: 'center',
-    bottom: 10,
+    bottom: 50,
     width: '100%',
     lineHeight: 20,
   },
@@ -1547,7 +1569,7 @@ const styles = StyleSheet.create({
     width: 400,
     height: 450,
     position: 'absolute',
-    bottom: 250,
+    bottom: 280,
     left: 50,
     // marginTop: -30,
     // alignSelf: 'center',
@@ -1564,7 +1586,6 @@ const styles = StyleSheet.create({
   },
   containerTextReference: {
     backgroundColor: '#c1b1d2',
-    // backgroundColor: 'black',
     height: 35,
     zIndex: -1,
     marginLeft: 45,
@@ -1575,7 +1596,8 @@ const styles = StyleSheet.create({
   buttonTextReference: {
     color: '#511181',
     fontSize: 18,
-    fontWeight: 'bold',
+    fontFamily: 'EzraSemiBold',
+    // fontWeight: 'bold',
   },
   //TELA FECHAMENTO
   uniqueImageFechamento: {
@@ -1605,6 +1627,7 @@ const styles = StyleSheet.create({
   },
   conteudoFechamento: {
     height: '78%',
+    // height: '78%',
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
@@ -1682,7 +1705,8 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     height: '15%',
     position: 'absolute',
-    bottom: 0,
+    // bottom: 0,
+    bottom: -30,
   },
   thirdSquare: {
     backgroundColor: '#dc0474',
@@ -1718,7 +1742,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     position: 'absolute',
     textAlign: 'center',
-    bottom: 50,
+    bottom: 30,
+    // bottom: 50,
     width: '100%',
     lineHeight: 20,
   },
