@@ -2,7 +2,7 @@
   "expo": {
     "name": "game-feira-libbs",
     "slug": "game-feira-libbs",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
@@ -24,9 +24,7 @@
     "web": {
       "favicon": "./assets/favicon.png"
     },
-    "plugins": [
-      "expo-font"
-    ],
+    "plugins": ["expo-font"],
     "extra": {
       "eas": {
         "projectId": "664ecf1e-81e9-4b9c-87d9-0999956abd52"
