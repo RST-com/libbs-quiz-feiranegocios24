@@ -7,6 +7,7 @@ import {
   StyleSheet,
   ImageBackground,
   TextInput,
+  StatusBar,
 } from 'react-native';
 import { useFonts } from 'expo-font';
 import * as SplashScreen from 'expo-splash-screen';
@@ -304,6 +305,7 @@ const QuizApp = () => {
       setCurrentScreen('telaPergunta');
     } else {
       setPerguntaAtual(0);
+      setAccumulatedValue((prevValue) => prevValue + 2);
       setCurrentScreen('telaFechamento');
     }
   };
@@ -323,7 +325,7 @@ const QuizApp = () => {
     }
 
     // Add 2 reais to the counter for each round
-    setAccumulatedValue((prevValue) => prevValue + 2);
+    // setAccumulatedValue((prevValue) => prevValue + 2);
 
     // Move to the next question after 2 seconds
     setTimeout(() => {
@@ -344,12 +346,17 @@ const QuizApp = () => {
   };
 
   const resetInactivityTimer = () => {
+    // Clear the existing timer, if any
     if (inactivityTimer) clearTimeout(inactivityTimer);
-    setInactivityTimer(
-      setTimeout(() => {
-        setCurrentScreen('telaInicial');
-      }, 60000),
-    );
+
+    // Start a new timer only if on 'telaFechamento'
+    if (currentScreen === 'telaFechamento') {
+      setInactivityTimer(
+        setTimeout(() => {
+          setCurrentScreen('telaInicial'); // Navigate to 'telaInicial' after 60 seconds
+        }, 60000),
+      );
+    }
   };
 
   useEffect(() => {
@@ -358,7 +365,9 @@ const QuizApp = () => {
 
   useEffect(() => {
     if (currentScreen === 'telaFechamento') {
-      resetInactivityTimer();
+      resetInactivityTimer(); // Start the timer when entering 'telaFechamento'
+    } else if (inactivityTimer) {
+      clearTimeout(inactivityTimer); // Clear the timer when leaving 'telaFechamento'
     }
   }, [currentScreen]);
 
@@ -375,6 +384,7 @@ const QuizApp = () => {
 
   return (
     <View style={styles.container} onLayout={onLayoutRootView}>
+      <StatusBar hidden={true} />
       {/* <SafeAreaView style={styles.container} onLayout={onLayoutRootView}> */}
       {currentScreen === 'telaInicial' && (
         <TouchableOpacity
@@ -635,18 +645,18 @@ const QuizApp = () => {
           <View style={styles.dash}></View>
           <View style={styles.conteudoResposta}>
             <Text style={styles.answerResposta}>
-              Falso
-              {/* {perguntasSelecionadas[perguntaAtual].resposta} */}
+              {/* Falso */}
+              {perguntasSelecionadas[perguntaAtual].resposta}
             </Text>
             <Text style={styles.explanation}>
-              Em pesquisa com 1,8 milhões de mulheres usuárias de contraceptivos
+              {/* Em pesquisa com 1,8 milhões de mulheres usuárias de contraceptivos
               hormonais realizada na Dinamarca, houve um caso a mais de câncer
               do que o esperado para cada 7.690 usuárias de anticoncepcionais
               hormonais. No entanto, os contraceptivos hormonais protegem contra
               os cânceres de ovário, endométrio e colorretal.2 O risco de câncer
               de mama associado ao uso da terapia hormonal é pequeno, com
-              incidência anual de menos de um caso por 1.000 mulheres.
-              {/* {perguntasSelecionadas[perguntaAtual].explanation} */}
+              incidência anual de menos de um caso por 1.000 mulheres. */}
+              {perguntasSelecionadas[perguntaAtual].explanation}
             </Text>
             <TouchableOpacity
               style={styles.buttonReference}
@@ -694,7 +704,7 @@ const QuizApp = () => {
           <View style={styles.footer}>
             <Text
               style={{
-                fontSize: 12,
+                fontSize: 11,
                 color: '#333',
                 fontFamily: 'EzraSemiBold',
               }}
@@ -703,7 +713,7 @@ const QuizApp = () => {
             </Text>
             <Text
               style={{
-                fontSize: 12,
+                fontSize: 11,
                 color: '#333',
                 fontFamily: 'EzraSemiBold',
               }}
@@ -713,7 +723,7 @@ const QuizApp = () => {
             </Text>
             <Text
               style={{
-                fontSize: 12,
+                fontSize: 11,
                 color: '#333',
                 fontFamily: 'EzraSemiBold',
               }}
@@ -800,7 +810,7 @@ const QuizApp = () => {
             <View style={styles.footerFechamento}>
               <Text
                 style={{
-                  fontSize: 12,
+                  fontSize: 11,
                   color: '#333',
                   fontFamily: 'EzraSemiBold',
                 }}
@@ -809,7 +819,7 @@ const QuizApp = () => {
               </Text>
               <Text
                 style={{
-                  fontSize: 12,
+                  fontSize: 11,
                   color: '#333',
                   fontFamily: 'EzraSemiBold',
                 }}
@@ -819,7 +829,7 @@ const QuizApp = () => {
               </Text>
               <Text
                 style={{
-                  fontSize: 12,
+                  fontSize: 11,
                   color: '#333',
                   fontFamily: 'EzraSemiBold',
                 }}
@@ -955,7 +965,7 @@ const styles = StyleSheet.create({
   container: {
     height: '100%',
     position: 'relative',
-    marginTop: -15,
+    // marginTop: -15,
     // fontFamily: 'EzraRegular',
   },
   //TELA GESTAO
@@ -1444,7 +1454,7 @@ const styles = StyleSheet.create({
   },
   graphism5: {
     position: 'absolute',
-    bottom: -10,
+    bottom: 0,
     left: 0,
     width: 140,
     // width: 100,
@@ -1481,13 +1491,13 @@ const styles = StyleSheet.create({
   pinkSquareResponse: {
     width: 100,
     // width: 120,
-    height: 85,
-    // height: 60,
+    // height: 80,
+    height: 60,
   },
   rectangleResponse: {
     width: '100%',
-    height: 40,
-    // height: 20,
+    // height: 40,
+    height: 20,
   },
   rectangleResponse2: {
     width: '100%',
@@ -1503,7 +1513,8 @@ const styles = StyleSheet.create({
     // height: 152,
     position: 'absolute',
     right: 80,
-    top: 20,
+    top: 0,
+    // top: 20,
   },
   answerResposta: {
     fontSize: 40,
@@ -1514,8 +1525,8 @@ const styles = StyleSheet.create({
     // marginBottom: 10,
   },
   explanation: {
-    fontSize: 26,
-    // fontSize: 22,
+    // fontSize: 24,
+    fontSize: 20,
     lineHeight: 32,
     fontFamily: 'EzraRegular',
     // lineHeight: 32,
@@ -1552,8 +1563,8 @@ const styles = StyleSheet.create({
     height: 3,
     position: 'absolute',
     left: -60,
-    top: 135,
-    // top: 115,
+    // top: 135,
+    top: 115,
   },
   footer: {
     display: 'flex',
@@ -1693,7 +1704,7 @@ const styles = StyleSheet.create({
     width: 115,
   },
   qrCodeText: {
-    fontSize: 16,
+    fontSize: 14,
     color: '#7e458c',
     fontFamily: 'EzraSemiBold',
     // fontWeight: 'bold',
