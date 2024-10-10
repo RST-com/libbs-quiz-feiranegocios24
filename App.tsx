@@ -5,7 +5,6 @@ import {
   TouchableOpacity,
   Image,
   StyleSheet,
-  SafeAreaView,
   ImageBackground,
   TextInput,
 } from 'react-native';
@@ -16,9 +15,9 @@ SplashScreen.preventAutoHideAsync();
 
 const QuizApp = () => {
   const [fontsLoaded] = useFonts({
-    'Ezra-Regular': require('./assets/fonts/Ezra-Light.otf'),
+    EzraRegular: require('./assets/fonts/Ezra-Regular.otf'),
+    EzraSemiBold: require('./assets/fonts/Ezra-SemiBold.otf'),
   });
-
   // This function hides the splash screen after fonts are loaded
   const onLayoutRootView = useCallback(async () => {
     if (fontsLoaded) {
@@ -49,13 +48,13 @@ const QuizApp = () => {
   const [modalVisible, setModalVisible] = useState(false);
   const [accumulatedValue, setAccumulatedValue] = useState(0);
   const [temporaryValue, setTemporaryValue] = useState(accumulatedValue);
+  const [botaoDesativado, setBotaoDesativado] = useState(false);
 
   const perguntas = [
     {
       id: 1,
       texto: 'Estrogênio e Progesterona são os principais hormônios femininos.',
-      modalImage: require('./assets/imgs/referencia1.png'),
-      resposta: 'Verdadeiro',
+      resposta: 'VERDADEIRO',
       referenceText:
         'Gynton & Hall. Tratado de Fisiologia Médica.Cap 81, 12ª. Ed.2011',
       explanation:
@@ -65,8 +64,7 @@ const QuizApp = () => {
       id: 2,
       texto:
         'Os hormônios dos contraceptivos e terapias de reposição hormonal estão relacionados ao surgimento de câncer.',
-      modalImage: require('./assets/imgs/referencia1.png'),
-      resposta: 'Falso',
+      resposta: 'FALSO',
       referenceText:
         'https://www.sbmastologia.com.br/anticoncepcionais-aumentam-risco-de-cancerdemama/',
       explanation:
@@ -75,8 +73,7 @@ const QuizApp = () => {
     {
       id: 3,
       texto: 'Hormônios bioidênticos são aqueles retirados do corpo humano',
-      modalImage: require('./assets/imgs/referencia1.png'),
-      resposta: 'Falso',
+      resposta: 'FALSO',
       referenceText:
         'Pompei, Luciano de Melo; Machado, Rogério Bonassi; Wender, Maria Celeste Osório; Fernandes, César Eduardo. Consenso Brasileiro de Terapêutica Hormonal da Menopausa – Associação Brasileira de Climatério (SOBRAC) – São Paulo:Leitura Médica, 2018.',
       explanation:
@@ -85,8 +82,7 @@ const QuizApp = () => {
     {
       id: 4,
       texto: 'Usar pílula anticoncepcional engorda',
-      modalImage: require('./assets/imgs/referencia1.png'),
-      resposta: 'Falso',
+      resposta: 'FALSO',
       referenceText: 'https://www.endocrino.org.br/hormonios-bioidenticos/',
       explanation:
         'Em revisão de literatura conclui-se não há relação da pílula combinada com o aumento do peso corporal.',
@@ -94,8 +90,7 @@ const QuizApp = () => {
     {
       id: 5,
       texto: 'A pílula causa trombose.',
-      modalImage: require('./assets/imgs/referencia1.png'),
-      resposta: 'Falso',
+      resposta: 'FALSO',
       referenceText:
         'ALBERNAZ, L. M. B.; OLIVEIRA, B. D.; SOARES, A. K. S.; DE SOUZA, J. H. K. O ganho de peso relacionado ao uso do anticoncepcional oral combinado: fato ou mito?. Brazilian Journal of Health Review, [S. l.], v. 6, n. 3, p. 12262–12268, 2023. DOI: 10.34119/bjhrv6n3-302. Disponível em: https://ojs.brazilianjournals.com.br/ojs/index.php/BJHR/article/view/60590. Acesso em: 24 sep. 2024.',
       explanation:
@@ -104,8 +99,7 @@ const QuizApp = () => {
     {
       id: 6,
       texto: 'Hormônios impactam na saúde mental e no humor.',
-      modalImage: require('./assets/imgs/referencia1.png'),
-      resposta: 'Verdadeiro',
+      resposta: 'VERDADEIRO',
       referenceText:
         'Van Hylckama Vlieg A, Helmerhorst FM, Vandenbroucke JP, Doggen CJM, Rosendaal FR. The venous thrombotic risk of oral contraceptives, effects of oestrogen dose and progestogen type: results of the MEGA case-control study. BMJ. 2009;339:b2921.',
       explanation:
@@ -115,8 +109,7 @@ const QuizApp = () => {
       id: 7,
       texto:
         'Quem toma a pílula anticoncepcional por muito tempo pode ficar infértil.',
-      modalImage: require('./assets/imgs/referencia1.png'),
-      resposta: 'Falso',
+      resposta: 'FALSO',
       referenceText:
         'Reed S, Koro C, DiBello J, et al. Prospective controlled nomegestrol acaetate (2,5mg) and 17β estradiol (1,5mg) (PRO-E2 study): risk of thromoboembolism Eur. J. Contracep Reprod Health Care. 2021; 26(6):439-46.',
       explanation:
@@ -125,8 +118,7 @@ const QuizApp = () => {
     {
       id: 8,
       texto: 'O mesmo método contraceptivo serve para todas as mulheres.',
-      modalImage: require('./assets/imgs/referencia1.png'),
-      resposta: 'Falso',
+      resposta: 'FALSO',
       referenceText:
         'SANTOS, R. L. dos; BARBOSA, A. de L. de O.; SANTANA, A. L. .; FARIAS, J. V. C.; MACÊDO, P. R. de .; FARIAS, I. C. C. . The risks of prolonged use of hormonal contraceptives. Research, Society and Development, [S. l.], v. 9, n. 11, p. e69791110394, 2020. DOI: 10.33448/rsd-v9i11.10394. Disponível em: https://rsdjournal.org/index.php/rsd/article/view/10394. Acesso em: 24 sep. 2024',
       explanation:
@@ -135,8 +127,7 @@ const QuizApp = () => {
     {
       id: 9,
       texto: 'A pílula pode ser uma aliada para controlar os sintomas de TPM.',
-      modalImage: require('./assets/imgs/referencia1.png'),
-      resposta: 'Verdadeiro',
+      resposta: 'VERDADEIRO',
       referenceText:
         'https://sbra.com.br/noticias/anticoncepcional-entenda-a-relacao-entre-o-contraceptivo-a-fertilidade-da-mulher/',
       explanation:
@@ -146,8 +137,7 @@ const QuizApp = () => {
       id: 10,
       texto:
         'Existem métodos contraceptivos que ajudam no controle da acne e espinhas.',
-      modalImage: require('./assets/imgs/referencia1.png'),
-      resposta: 'Verdadeiro',
+      resposta: 'VERDADEIRO',
       referenceText:
         'Vieira CS et al. Female hormones and hemostasis. Rev. Bras. Ginecol. Obstet, 2007: 29 (10).',
       explanation:
@@ -157,8 +147,7 @@ const QuizApp = () => {
       id: 11,
       texto:
         'A Pílula do Dia Seguinte pode ser utilizada toda vez que eu tiver alguma relação sexual.',
-      modalImage: require('./assets/imgs/referencia1.png'),
-      resposta: 'Falso',
+      resposta: 'FALSO',
       referenceText:
         'WORLD HEALTH ORGANIZATION. Medical eligibility criteria for contraceptive use. 5th ed. Geneva: WHO, 2015.',
       explanation:
@@ -167,8 +156,7 @@ const QuizApp = () => {
     {
       id: 12,
       texto: 'Existem contraceptivos com “hormônio mais natural”.',
-      modalImage: require('./assets/imgs/referencia1.png'),
-      resposta: 'Verdadeiro',
+      resposta: 'VERDADEIRO',
       referenceText:
         'Federação Brasileira das Associações de Ginecologia e Obstetrícia. Manual de anticoncepção. [internet]. São Paulo: FEBRASGO; 2015. [Acesso em 25set/2024].',
       explanation:
@@ -178,8 +166,7 @@ const QuizApp = () => {
       id: 13,
       texto:
         'Ter câncer ou histórico de câncer na família é impeditivo para fazer terapia hormonal?',
-      modalImage: require('./assets/imgs/referencia1.png'),
-      resposta: 'Falso',
+      resposta: 'FALSO',
       referenceText:
         'Síndrome dos ovários policísticos. 3a ed. São Paulo: Federação Brasileira das Associações de Ginecologia e Obstetrícia (FEBRASGO); 2023. 140p. (Série Orientações e Recomendações FEBRASGO, n.1, Comissão Nacional de Ginecologia Endócrina).',
       explanation:
@@ -188,8 +175,7 @@ const QuizApp = () => {
     {
       id: 14,
       texto: 'A menopausa só chega após os 50 anos.',
-      modalImage: require('./assets/imgs/referencia1.png'),
-      resposta: 'Falso',
+      resposta: 'FALSO',
       referenceText:
         'Federação Brasileira das Associações de Ginecologia e Obstetrícia (FEBRASGO). Anticoncepcional hormonal apenas de progestagênio e anticoncepção de emergência. São Paulo: FEBRASGO; 2021. (Protocolo FEBRASGO-Ginecologia, no 66/ Comissão Nacional Especializada em Anticoncepção).',
       explanation:
@@ -199,8 +185,7 @@ const QuizApp = () => {
       id: 15,
       texto:
         'Existem muitos efeitos colaterais na terapia de reposição hormonal.',
-      modalImage: require('./assets/imgs/referencia1.png'),
-      resposta: 'Falso',
+      resposta: 'FALSO',
       referenceText:
         'Machado RB, Pompei LM et al. Consenso Brasileiro de Terapêutica Hormonal da Menopausa – Associação Brasileira de Climatério (SOBRAC) – São Paulo: ALEF Editora, 2024.',
       explanation:
@@ -209,8 +194,7 @@ const QuizApp = () => {
     {
       id: 16,
       texto: 'Terapia de reposição hormonal ajuda a prevenir a osteoporose.',
-      modalImage: require('./assets/imgs/referencia1.png'),
-      resposta: 'Verdadeiro',
+      resposta: 'VERDADEIRO',
       referenceText:
         'Baccaro LF, Paiva LH, Nasser EJ, Valadares AL, Silva CR, Nahas EA, et al. Propedêutica mínima no climatério. FEBRASGO POSITION STATEMENT, 2022: 5.',
       explanation:
@@ -220,8 +204,7 @@ const QuizApp = () => {
       id: 17,
       texto:
         'A Fitoterapia pode ajudar a aliviar os sintomas da menopausa tanto quanto a terapia de reposição hormonal.',
-      modalImage: require('./assets/imgs/referencia1.png'),
-      resposta: 'Falso',
+      resposta: 'FALSO',
       referenceText: '',
       explanation:
         'Não há evidência concreta de que os fitoestrogênios efetivamente reduzem os fogachos e suores noturnos em mulheres climatéricas, sendo a terapia hormonal a primeira indicação.',
@@ -230,8 +213,7 @@ const QuizApp = () => {
       id: 18,
       texto:
         'A terapia de reposição hormonal pode aumentar o risco de doenças cardiovasculares em mulheres.',
-      modalImage: require('./assets/imgs/referencia1.png'),
-      resposta: 'Falso',
+      resposta: 'FALSO',
       referenceText: '',
       explanation:
         'A terapia hormonal, quando iniciada até 10 anos após a menopausa ou 60 anos de idade, diminui o risco cardiovascular em mulheres.',
@@ -240,8 +222,7 @@ const QuizApp = () => {
       id: 19,
       texto:
         'Preciso desintoxicar o corpo depois de um período utilizando contraceptivos.',
-      modalImage: require('./assets/imgs/referencia1.png'),
-      resposta: 'Falso',
+      resposta: 'FALSO',
       referenceText: '',
       explanation:
         'Não há nenhum consenso que oriente a necessidade de desintoxicar o corpo após uso de contraceptivos.',
@@ -250,8 +231,7 @@ const QuizApp = () => {
       id: 20,
       texto:
         'A terapia hormonal da menopausa pode ser usada por no máximo 5 anos.',
-      modalImage: require('./assets/imgs/referencia1.png'),
-      resposta: 'Falso',
+      resposta: 'FALSO',
       referenceText: '',
       explanation:
         'Não há um limite fixo ou duração máxima pré-estabelecida para o uso da terapia hormonal e nem mesmo uma idade máxima em que deva ser suspensa.',
@@ -259,11 +239,12 @@ const QuizApp = () => {
   ];
 
   const poses = [
-    require('./assets/imgs/Pose1.png'),
-    require('./assets/imgs/Pose2.png'),
-    require('./assets/imgs/Pose3.png'),
-    require('./assets/imgs/Pose4.png'),
-    require('./assets/imgs/Pose5.png'),
+    // require('./assets/imgs/Pose1.png'),
+    require('./assets/imgs/Pose3Copy.png'),
+    require('./assets/imgs/Pose2Copy.png'), // Pose 2
+    require('./assets/imgs/Pose4Copy.png'),
+    require('./assets/imgs/Pose5Copy.png'),
+    require('./assets/imgs/Pose6Copy.png'),
   ];
 
   // Function to determine the pose to show based on the response
@@ -353,6 +334,7 @@ const QuizApp = () => {
       }
       setMostrarRightResult(false);
       setMostrarWrongResult(false);
+      setBotaoDesativado(false);
     }, 2000);
   };
 
@@ -392,7 +374,7 @@ const QuizApp = () => {
   }
 
   return (
-    <SafeAreaView style={styles.container} onLayout={onLayoutRootView}>
+    <View style={styles.container} onLayout={onLayoutRootView}>
       {/* <SafeAreaView style={styles.container} onLayout={onLayoutRootView}> */}
       {currentScreen === 'telaInicial' && (
         <TouchableOpacity
@@ -547,12 +529,14 @@ const QuizApp = () => {
             <TouchableOpacity
               style={styles.buttonVerdadeiro}
               onPress={() => verificarResposta('Verdadeiro')}
+              disabled={botaoDesativado}
             >
               <Text style={styles.buttonTextVerdadeiro}>Verdadeiro</Text>
             </TouchableOpacity>
             <TouchableOpacity
               style={styles.buttonFalso}
               onPress={() => verificarResposta('Falso')}
+              disabled={botaoDesativado}
             >
               <Text style={styles.buttonText}>Falso</Text>
             </TouchableOpacity>
@@ -562,16 +546,20 @@ const QuizApp = () => {
                 <>
                   <Image
                     style={{
-                      width: 35,
-                      height: 35,
+                      width: 45,
+                      height: 45,
+                      // width: 35,
+                      // height: 35,
                     }}
                     source={require('./assets/imgs/check_circle.png')}
                   />
                   <Text
                     id="#resultado"
                     style={{
-                      fontSize: 24,
-                      fontWeight: 'bold',
+                      fontSize: 30,
+                      // fontSize: 24,
+                      // fontWeight: 'bold',
+                      fontFamily: 'EzraSemiBold',
                       color: '#7dc4aa',
                     }}
                   >
@@ -584,16 +572,20 @@ const QuizApp = () => {
                 <>
                   <Image
                     style={{
-                      width: 35,
-                      height: 35,
+                      width: 45,
+                      height: 45,
+                      // width: 35,
+                      // height: 35,
                     }}
                     source={require('./assets/imgs/wrong.png')}
                   />
                   <Text
                     id="#resultado"
                     style={{
-                      fontSize: 24,
-                      fontWeight: 'bold',
+                      fontSize: 30,
+                      // fontSize: 24,
+                      // fontWeight: 'bold',
+                      fontFamily: 'EzraSemiBold',
                       color: '#c24242',
                     }}
                   >
@@ -642,15 +634,19 @@ const QuizApp = () => {
           <View style={styles.dash}></View>
           <View style={styles.conteudoResposta}>
             <Text style={styles.answerResposta}>
+              {/* Falso */}
               {perguntasSelecionadas[perguntaAtual].resposta}
             </Text>
             <Text style={styles.explanation}>
+              {/* Em pesquisa com 1,8 milhões de mulheres usuárias de contraceptivos
+              hormonais realizada na Dinamarca, houve um caso a mais de câncer
+              do que o esperado para cada 7.690 usuárias de anticoncepcionais
+              hormonais. No entanto, os contraceptivos hormonais protegem contra
+              os cânceres de ovário, endométrio e colorretal.2 O risco de câncer
+              de mama associado ao uso da terapia hormonal é pequeno, com
+              incidência anual de menos de um caso por 1.000 mulheres. */}
               {perguntasSelecionadas[perguntaAtual].explanation}
             </Text>
-            <Image
-              style={styles.pose}
-              source={currentPose || getPoseForCurrentQuestion()}
-            />
             <TouchableOpacity
               style={styles.buttonReference}
               onPress={() => {
@@ -669,6 +665,10 @@ const QuizApp = () => {
                 </View>
               </ImageBackground>
             </TouchableOpacity>
+            <Image
+              style={styles.pose}
+              source={currentPose || getPoseForCurrentQuestion()}
+            />
             <TouchableOpacity
               style={styles.nextQuestionButton}
               onPress={() => {
@@ -677,22 +677,46 @@ const QuizApp = () => {
                 carregarPergunta();
               }}
             >
-              <Text style={{ color: '#fff', fontSize: 30, fontWeight: 'bold' }}>
+              <Text
+                style={{
+                  color: '#fff',
+                  fontSize: 30,
+                  fontFamily: 'EzraSemiBold',
+                }}
+              >
                 {perguntaAtual + 1 < perguntasSelecionadas.length
                   ? 'Próxima Pergunta'
-                  : 'Fim'}
+                  : 'Finalizar'}
               </Text>
             </TouchableOpacity>
           </View>
           <View style={styles.footer}>
-            <Text style={{ fontWeight: '600', fontSize: 11, color: '#333' }}>
+            <Text
+              style={{
+                fontSize: 12,
+                color: '#333',
+                fontFamily: 'EzraSemiBold',
+              }}
+            >
               Setembro/2024
             </Text>
-            <Text style={{ fontWeight: '600', fontSize: 11, color: '#333' }}>
+            <Text
+              style={{
+                fontSize: 12,
+                color: '#333',
+                fontFamily: 'EzraSemiBold',
+              }}
+            >
               - Material destinado a profissionais de saúde habilitados a
               dispensar e/ou prescrever medicamentos.
             </Text>
-            <Text style={{ fontWeight: '600', fontSize: 11, color: '#333' }}>
+            <Text
+              style={{
+                fontSize: 12,
+                color: '#333',
+                fontFamily: 'EzraSemiBold',
+              }}
+            >
               - Este material é de uso exclusivo, sem autorização de postagem
               e/ou compartilhamento.
             </Text>
@@ -737,13 +761,22 @@ const QuizApp = () => {
             </View>
 
             <View style={styles.arrecadadosContainer}>
-              <Text style={{ color: '#7e458c', fontWeight: 'bold' }}>
+              <Text
+                style={{
+                  color: '#7e458c',
+                  fontFamily: 'EzraSemiBold',
+                  fontSize: 16,
+                }}
+              >
                 Já arrecadados
               </Text>
               <View style={styles.arrecadasdosNumberContainer}>
                 {/* //CONTADOR */}
                 <Text style={styles.arrecadadosNumber}>
-                  {accumulatedValue.toFixed(2)}
+                  {new Intl.NumberFormat('pt-BR', {
+                    minimumFractionDigits: 2,
+                    maximumFractionDigits: 2,
+                  }).format(accumulatedValue)}
                 </Text>
               </View>
             </View>
@@ -760,14 +793,32 @@ const QuizApp = () => {
             </View>
 
             <View style={styles.footerFechamento}>
-              <Text style={{ fontWeight: '600', fontSize: 11, color: '#333' }}>
+              <Text
+                style={{
+                  fontSize: 12,
+                  color: '#333',
+                  fontFamily: 'EzraSemiBold',
+                }}
+              >
                 Setembro/2024
               </Text>
-              <Text style={{ fontWeight: '600', fontSize: 11, color: '#333' }}>
+              <Text
+                style={{
+                  fontSize: 12,
+                  color: '#333',
+                  fontFamily: 'EzraSemiBold',
+                }}
+              >
                 - Material destinado a profissionais de saúde habilitados a
                 dispensar e/ou prescrever medicamentos.
               </Text>
-              <Text style={{ fontWeight: '600', fontSize: 11, color: '#333' }}>
+              <Text
+                style={{
+                  fontSize: 12,
+                  color: '#333',
+                  fontFamily: 'EzraSemiBold',
+                }}
+              >
                 - Este material é de uso exclusivo, sem autorização de postagem
                 e/ou compartilhamento.
               </Text>
@@ -889,7 +940,7 @@ const QuizApp = () => {
           </View>
         </View>
       )}
-    </SafeAreaView>
+    </View>
   );
 };
 
@@ -899,7 +950,7 @@ const styles = StyleSheet.create({
   container: {
     height: '100%',
     position: 'relative',
-    fontFamily: 'Ezra-Regular',
+    // fontFamily: 'EzraRegular',
   },
   //TELA GESTAO
   gestaoContainer: {
@@ -950,12 +1001,13 @@ const styles = StyleSheet.create({
     backgroundColor: '#f8e2dd',
   },
   square: {
-    width: 153,
     height: 153,
+    width: 153,
     backgroundColor: '#da1278',
   },
   rectangle: {
-    width: 350,
+    // width: 350,
+    width: 550,
     height: 93,
     backgroundColor: '#f174ac',
   },
@@ -964,18 +1016,21 @@ const styles = StyleSheet.create({
     width: 95,
     position: 'absolute',
     top: 0,
-    left: 503,
+    right: 0,
+    // left: 503,
   },
   uniqueImage: {
     position: 'absolute',
     top: 50,
-    left: 430,
+    right: 30,
+    // left: 430,
     height: 140,
     width: 140,
     zIndex: 100,
   },
   conteudo: {
-    height: '60%',
+    // height: '60%',
+    height: '70%',
     alignItems: 'center',
     justifyContent: 'center',
     position: 'relative',
@@ -995,16 +1050,17 @@ const styles = StyleSheet.create({
   },
   lastRow: {
     flexDirection: 'row',
-    height: '25%',
+    height: '20%',
     position: 'absolute',
     bottom: 0,
     backgroundColor: '#f8e2dd',
   },
   wavesImage: {
+    // bottom: 105,
     position: 'absolute',
     height: 210,
     width: 140,
-    bottom: 105,
+    bottom: 120,
     zIndex: 1,
   },
   flexCol: {
@@ -1012,13 +1068,15 @@ const styles = StyleSheet.create({
     backgroundColor: '#f8e2dd',
   },
   secondRectangle: {
-    width: 380,
-    height: 120,
+    // width: 380,
+    width: 480,
+    height: 124,
     backgroundColor: '#f174ac',
   },
   thirdRectangle: {
-    width: 380,
-    height: 220,
+    // width: 380,
+    width: 480,
+    height: 124,
     backgroundColor: '#cbbed9',
   },
   secondSquare: {
@@ -1027,31 +1085,41 @@ const styles = StyleSheet.create({
     backgroundColor: '#da1278',
   },
   buttonVerdadeiro: {
-    width: 450,
-    height: 60,
+    width: 600,
+    // width: 450,
+    height: 90,
+    // height: 60,
     backgroundColor: '#7dc4aa',
-    borderRadius: 30,
+    borderRadius: 60,
+    // borderRadius: 30,
     justifyContent: 'center',
     alignItems: 'center',
     marginTop: 20,
   },
   buttonFalso: {
-    width: 450,
-    height: 60,
+    width: 600,
+    // width: 450,
+    height: 90,
+    // height: 60,
     backgroundColor: '#c24242',
-    borderRadius: 30,
+    borderRadius: 60,
+    // borderRadius: 30,
     justifyContent: 'center',
     alignItems: 'center',
     marginTop: 20,
   },
   buttonTextVerdadeiro: {
-    fontSize: 28,
-    fontWeight: 'bold',
+    fontSize: 38,
+    // fontSize: 28,
+    // fontWeight: 'bold',
+    fontFamily: 'EzraSemiBold',
     color: '#3e4a4f',
   },
   buttonText: {
-    fontSize: 28,
-    fontWeight: 'bold',
+    fontSize: 38,
+    // fontSize: 28,
+    fontFamily: 'EzraSemiBold',
+    // fontWeight: 'bold',
     color: '#fff',
   },
   title: {
@@ -1105,15 +1173,16 @@ const styles = StyleSheet.create({
     lineHeight: 30,
   },
   referenceTitle: {
+    fontFamily: 'EzraSemiBold',
     color: '#333',
     fontSize: 18,
-    fontWeight: 'bold',
     marginBottom: 15,
   },
   referenceText: {
     color: '#333',
     fontSize: 14,
     marginBottom: 10,
+    fontFamily: 'EzraRegular',
   },
   closeButton: {
     backgroundColor: '#511181',
@@ -1129,7 +1198,7 @@ const styles = StyleSheet.create({
   closeButtonText: {
     color: 'white',
     fontSize: 16,
-    fontWeight: 'bold',
+    fontFamily: 'EzraSemiBold',
   },
   //TELA DESCANSO
   containerDescanso: {
@@ -1141,76 +1210,98 @@ const styles = StyleSheet.create({
   },
   topImage: {
     position: 'absolute',
-    top: -30,
-    width: 140,
-    height: 140,
+    top: -50,
+    left: 0,
+    // top: -30,
+    width: 220,
+    height: 220,
+    // width: 140,
+    // height: 140,
     resizeMode: 'contain',
     alignSelf: 'flex-start',
   },
   conteudoDescanso: {
     position: 'absolute',
-    top: 90,
-    width: '80%',
+    // top: 90,
+    top: 180,
+    width: '95%',
     alignItems: 'center',
-    // marginTop: 40,
   },
   stick: {
     width: '20%',
     color: '#512b7d',
     backgroundColor: '#512b7d',
-    height: 2,
+    height: 3,
     position: 'absolute',
     left: -60,
-    top: 25,
+    top: 28,
   },
   heading: {
-    fontSize: 35,
+    fontSize: 40,
+    // fontSize: 35,
     textAlign: 'left',
-    width: '75%',
-    fontWeight: 'bold',
+    width: '65%',
+    // width: '75%',
     color: '#512b7d',
-    // fontFamily: 'Ezra-Regular',
+    fontFamily: 'EzraSemiBold',
+    lineHeight: 60,
   },
   descansoFirst: {
-    fontSize: 24,
-    width: '85%',
+    fontFamily: 'EzraSemiBold',
+    fontSize: 30,
+    // fontSize: 24,
+    width: '71%',
+    // width: '85%',
     color: '#512b7d',
-    marginTop: 10,
-    fontWeight: 'bold',
+    // marginTop: 10,
+    marginTop: 20,
+    // fontWeight: 'bold',
     textAlign: 'left',
     marginLeft: 50,
-    lineHeight: 30,
+    lineHeight: 34,
+    // lineHeight: 30,
   },
   rulesContainer: {
     textAlign: 'left',
-    width: '75%',
-    marginTop: 20,
+    width: '64%',
+    // width: '75%',
+    marginTop: 60,
+    // marginTop: 20,
     gap: 15,
   },
   headerRules: {
-    fontSize: 24,
+    fontSize: 30,
+    // fontSize: 24,
     color: '#512b7d',
-    fontWeight: 'bold',
+    // fontWeight: 'bold',
     lineHeight: 30,
+    fontFamily: 'EzraSemiBold',
+    marginBottom: 20,
   },
   headerRulesContainer: {
     display: 'flex',
     flexDirection: 'row',
+    marginLeft: 20,
     gap: 4,
   },
   buttonDescanso: {
-    width: 350,
-    height: 60,
+    width: 500,
+    // width: 350,
+    height: 90,
+    // height: 60,
     borderRadius: 100,
     backgroundColor: '#da1278',
     justifyContent: 'center',
     alignItems: 'center',
-    marginTop: 40,
+    marginTop: 20,
+    // marginTop: 40,
   },
   buttonTextDescanso: {
-    fontSize: 25,
+    fontSize: 35,
+    // fontSize: 25,
     color: 'white',
-    fontWeight: 'bold',
+    fontFamily: 'EzraSemiBold',
+    // fontWeight: 'bold',
   },
   bottomImages: {
     position: 'absolute',
@@ -1224,15 +1315,18 @@ const styles = StyleSheet.create({
     position: 'absolute',
     bottom: 45,
     left: 0,
-    width: 40,
-    height: 100,
+    width: 60,
+    // width: 40,
+    height: 120,
+    // height: 100,
   },
   rectangle2: {
     position: 'absolute',
     bottom: 0,
     left: 0,
     height: 50,
-    width: '82%',
+    width: '87%',
+    // width: '82%',
   },
   unique2: {
     position: 'absolute',
@@ -1260,7 +1354,8 @@ const styles = StyleSheet.create({
   },
   purpleSquare: {
     backgroundColor: '#cbbdda',
-    width: 380,
+    width: 500,
+    // width: 380,
     height: 221,
   },
   flexContainer2: {
@@ -1276,15 +1371,19 @@ const styles = StyleSheet.create({
     paddingBottom: 24,
   },
   tituloPergunta: {
-    fontSize: 20,
-    fontWeight: 'bold',
+    fontSize: 28,
+    // fontSize: 20,
+    // fontWeight: 'bold',
     color: '#617179',
     alignSelf: 'flex-end',
+    fontFamily: 'EzraSemiBold',
   },
   subtitle: {
-    fontSize: 22,
+    fontSize: 28,
+    // fontSize: 22,
     color: '#617179',
-    fontWeight: 'bold',
+    fontFamily: 'EzraSemiBold',
+    // fontWeight: 'bold',
   },
   pinkSquare: {
     width: 300,
@@ -1302,9 +1401,11 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   textoPergunta: {
-    fontSize: 28,
+    fontSize: 38,
+    // fontSize: 28,
     fontWeight: 'bold',
-    lineHeight: 32,
+    lineHeight: 42,
+    // lineHeight: 32,
     textAlign: 'center',
     color: '#511181',
     marginHorizontal: '10%',
@@ -1312,11 +1413,13 @@ const styles = StyleSheet.create({
   answerResult: {
     flexDirection: 'column',
     alignItems: 'center',
-    marginTop: 20,
+    marginTop: 40,
+    // marginTop: 20,
   },
   containerResult: {
     flexDirection: 'row',
     marginTop: 25,
+    alignItems: 'center',
     gap: 10,
   },
   hidden: {
@@ -1329,24 +1432,32 @@ const styles = StyleSheet.create({
     position: 'absolute',
     bottom: 0,
     left: 0,
-    width: 100,
-    height: 100,
+    width: 140,
+    // width: 100,
+    height: 140,
+    // height: 100,
     resizeMode: 'contain',
   },
   rectangle28: {
     position: 'absolute',
-    bottom: 25,
-    left: 105,
-    width: 180,
-    height: 70,
+    bottom: 35,
+    // bottom: 25,
+    left: 145,
+    // left: 105,
+    width: 250,
+    // width: 180,
+    height: 95,
+    // height: 70,
     tintColor: '#da1278',
   },
   rectangle25: {
     position: 'absolute',
     bottom: 0,
     right: 0,
-    width: 315,
-    height: 25,
+    width: 405,
+    // width: 315,
+    height: 35,
+    // height: 25,
   },
   //TELA RESPOSTA
   flexContainerResponse: {
@@ -1354,58 +1465,73 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
   },
   pinkSquareResponse: {
-    width: 120,
-    height: 60,
+    width: 140,
+    // width: 120,
+    height: 80,
+    // height: 60,
   },
   rectangleResponse: {
     width: '100%',
     height: 20,
   },
   uniqueResponse: {
-    width: 160,
-    height: 100,
+    width: 250,
+    // width: 160,
+    height: 152,
+    // height: 100,
     position: 'absolute',
     right: 80,
     top: 0,
   },
   answerResposta: {
     fontSize: 40,
-    fontWeight: 'bold',
+    // fontWeight: 'bold',
+    fontFamily: 'EzraSemiBold',
     color: '#511181',
-    marginBottom: 10,
+    marginBottom: 30,
+    // marginBottom: 10,
   },
   explanation: {
-    fontSize: 22,
+    fontSize: 26,
+    // fontSize: 22,
     lineHeight: 32,
+    fontFamily: 'EzraRegular',
+    // lineHeight: 32,
     color: '#511181',
-    width: '65%',
+    width: '100%',
+    // width: '65%',
   },
   conteudoResposta: {
     paddingTop: 30,
     height: '100%',
     marginHorizontal: '10%',
+    // flex: 1,
+    // alignItems: 'center', // Center children horizontally
   },
   nextQuestionButton: {
     position: 'absolute',
-    bottom: 130,
+    bottom: 160,
     width: '100%',
-    height: 65,
+    height: 75,
+    // height: 65,
     fontSize: 46,
     backgroundColor: '#511181',
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-    borderRadius: 35,
+    borderRadius: 45,
+    // borderRadius: 35,
     paddingHorizontal: 40,
   },
   dash: {
-    width: '18%',
+    width: '15%',
     color: '#512b7d',
     backgroundColor: '#512b7d',
     height: 3,
     position: 'absolute',
     left: -60,
-    top: 115,
+    top: 135,
+    // top: 115,
   },
   footer: {
     display: 'flex',
@@ -1418,11 +1544,13 @@ const styles = StyleSheet.create({
     lineHeight: 20,
   },
   pose: {
-    position: 'absolute',
-    right: -150,
-    bottom: 200,
     width: 400,
-    height: 500,
+    height: 450,
+    position: 'absolute',
+    bottom: 250,
+    left: 50,
+    // marginTop: -30,
+    // alignSelf: 'center',
   },
   buttonReference: {
     width: 200,
@@ -1452,27 +1580,31 @@ const styles = StyleSheet.create({
   //TELA FECHAMENTO
   uniqueImageFechamento: {
     position: 'absolute',
-    top: 20,
-    left: 490,
-    height: 140,
-    width: 140,
+    top: 10,
+    right: -44,
+    // left: 490,
+    height: 210,
+    // height: 140,
+    width: 210,
+    // width: 140,
     zIndex: 100,
   },
   inicioImageFechamento: {
-    height: 95,
-    width: 95,
+    height: 125,
+    width: 125,
     position: 'absolute',
     top: 0,
     left: 0,
   },
   rectangleFechamento: {
-    width: 510,
-    height: 93,
-    marginLeft: 95,
+    width: 680,
+    height: 120,
+    // height: 93,
+    marginLeft: 125,
     backgroundColor: '#f174ac',
   },
   conteudoFechamento: {
-    height: '75%',
+    height: '78%',
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
@@ -1483,59 +1615,66 @@ const styles = StyleSheet.create({
   },
   logoFechamento: {
     marginLeft: -50,
-    height: 110,
-    width: 315,
-    marginBottom: 20,
+    height: 140,
+    width: 410,
+    marginBottom: 30,
   },
   conteudoTextoFechamento: {
-    marginHorizontal: '25%',
+    marginHorizontal: '22%',
   },
   textoObrigado: {
-    fontSize: 32,
-    fontWeight: 'bold',
+    fontSize: 42,
+    fontFamily: 'EzraSemiBold',
+    // fontWeight: 'bold',
     alignSelf: 'center',
+    // width: '20%',
     textAlign: 'left',
     color: '#7e458c',
+    lineHeight: 60,
   },
   arrecadadosContainer: {
     display: 'flex',
     flexDirection: 'column',
     gap: 10,
     alignItems: 'flex-start',
-    width: '48%',
+    width: '54%',
   },
   arrecadasdosNumberContainer: {
     backgroundColor: '#cbbdda',
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-    paddingTop: 10,
-    paddingBottom: 10,
+    paddingTop: 15,
+    paddingBottom: 15,
     paddingHorizontal: 30,
   },
   arrecadadosNumber: {
     color: '#7e458c',
-    fontSize: 40,
-    fontWeight: 'bold',
+    fontSize: 50,
+    // fontSize: 40,
+    fontFamily: 'EzraSemiBold',
+    // fontWeight: 'bold',
   },
   qrCodeContainer: {
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
-    marginHorizontal: '8%',
+    width: '38.8%',
+    marginRight: 125,
     gap: 20,
     marginBottom: 80,
   },
   qrCodeImage: {
-    height: 85,
-    width: 85,
+    height: 115,
+    width: 115,
   },
   qrCodeText: {
-    fontSize: 14,
+    fontSize: 16,
     color: '#7e458c',
-    fontWeight: 'bold',
-    width: '25%',
+    fontFamily: 'EzraSemiBold',
+    // fontWeight: 'bold',
+    width: '55%',
     marginTop: 10,
   },
   lastColFechamento: {
@@ -1547,8 +1686,8 @@ const styles = StyleSheet.create({
   },
   thirdSquare: {
     backgroundColor: '#dc0474',
-    height: 30,
-    width: 600,
+    height: 60,
+    width: 800,
   },
   flexRowFechamento: {
     display: 'flex',
@@ -1556,22 +1695,22 @@ const styles = StyleSheet.create({
   },
   fourthRectangle: {
     backgroundColor: '#90b9d2',
-    height: 110,
+    height: 125,
     width: 400,
   },
   fifthRectangle: {
     backgroundColor: '#cbbdda',
-    height: 110,
+    height: 125,
     width: 500,
   },
   fechamentoStick: {
     position: 'absolute',
-    width: '28%',
+    width: '25%',
     color: '#512b7d',
     backgroundColor: '#512b7d',
     height: 3,
     left: -60,
-    top: 250,
+    top: 335,
   },
   footerFechamento: {
     display: 'flex',
@@ -1579,7 +1718,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     position: 'absolute',
     textAlign: 'center',
-    bottom: 30,
+    bottom: 50,
     width: '100%',
     lineHeight: 20,
   },
