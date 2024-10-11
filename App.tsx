@@ -57,7 +57,7 @@ const QuizApp = () => {
       texto: 'Estrogênio e Progesterona são os principais hormônios femininos.',
       resposta: 'VERDADEIRO',
       referenceText:
-        'Gynton & Hall. Tratado de Fisiologia Médica.Cap 81, 12ª. Ed.2011',
+        '1. Gynton & Hall. Tratado de Fisiologia Médica. Cap 81, 12ª. Ed. 2011.',
       explanation:
         'Os estrogênios são produzidos principalmente pelos ovários e possuem a capacidade de estimular o crescimento e a manutenção das características sexuais femininas. A progesterona é produzida no corpo lúteo formado nos ovários e é um modulador chave das funções reprodutivas normais.',
     },
@@ -66,25 +66,28 @@ const QuizApp = () => {
       texto:
         'Os hormônios dos contraceptivos e terapias de reposição hormonal estão relacionados ao surgimento de câncer.',
       resposta: 'FALSO',
-      referenceText:
-        'https://www.sbmastologia.com.br/anticoncepcionais-aumentam-risco-de-cancerdemama/',
+      referenceText: `1. Sociedade Brasileira de Mastologia. Anticoncepcionais aumentam o risco de câncer de mama [internet]. Rio de Janeiro: SBM. [Acesso em: 04Out2024]. Disponível em: https://www.sbmastologia.com.br/anticoncepcionaisaumentam-risco-de-cancerde-mama/${'\n'}2. Pompei, Luciano de Melo; Machado, Rogério Bonassi; Wender, Maria Celeste
+Osório; Fernandes, César Eduardo. Consenso Brasileiro de Terapêutica Hormonal da
+Menopausa – Associação Brasileira de Climatério (SOBRAC) – São Paulo: Leitura
+Médica, 2018.`,
       explanation:
         'Em pesquisa com 1,8 milhões de mulheres usuárias de contraceptivos hormonais realizada na Dinamarca, houve um caso a mais de câncer do que o esperado para cada 7.690 usuárias de anticoncepcionais hormonais. No entanto, os contraceptivos hormonais protegem contra os cânceres de ovário, endométrio e colorretal.',
     },
     {
       id: 3,
-      texto: 'Hormônios bioidênticos são aqueles retirados do corpo humano',
+      texto: 'Hormônios bioidênticos são aqueles retirados do corpo humano.',
       resposta: 'FALSO',
       referenceText:
-        'Pompei, Luciano de Melo; Machado, Rogério Bonassi; Wender, Maria Celeste Osório; Fernandes, César Eduardo. Consenso Brasileiro de Terapêutica Hormonal da Menopausa – Associação Brasileira de Climatério (SOBRAC) – São Paulo:Leitura Médica, 2018.',
+        '1. Sociedade Brasileira de Endocrinologia e Metabologia. Hormônios Bioidênticos [internet]. São Paulo: SBEM; 2010. [Acesso em: 04Out2024]. Disponível em: https://www.endocrino.org.br/hormonios-bioidenticos/',
       explanation:
-        'Hormônios Bioidênticos, substâncias hormonais que possuem exatamente a mesma estrutura química e molecular encontrada nos hormônios produzidos no corpo humano.',
+        'Hormônios Bioidênticos são substâncias hormonais que possuem exatamente a mesma estrutura química e molecular encontrada nos hormônios produzidos no corpo humano.',
     },
     {
       id: 4,
-      texto: 'Usar pílula anticoncepcional engorda',
+      texto: 'Usar pílula anticoncepcional engorda.',
       resposta: 'FALSO',
-      referenceText: 'https://www.endocrino.org.br/hormonios-bioidenticos/',
+      referenceText:
+        '1. Albernaz LMB, Oliveira BD, Soares AKS, De Souza JHK. O ganho de peso relacionado ao uso do anticoncepcional oral combinado: fato ou mito? Brazilian Journal of Health Review, [S. l.], v. 6, n. 3, p. 12262–12268, 2023.',
       explanation:
         'Em revisão de literatura conclui-se não há relação da pílula combinada com o aumento do peso corporal.',
     },
@@ -92,151 +95,158 @@ const QuizApp = () => {
       id: 5,
       texto: 'A pílula causa trombose.',
       resposta: 'FALSO',
-      referenceText:
-        'ALBERNAZ, L. M. B.; OLIVEIRA, B. D.; SOARES, A. K. S.; DE SOUZA, J. H. K. O ganho de peso relacionado ao uso do anticoncepcional oral combinado: fato ou mito?. Brazilian Journal of Health Review, [S. l.], v. 6, n. 3, p. 12262–12268, 2023. DOI: 10.34119/bjhrv6n3-302. Disponível em: https://ojs.brazilianjournals.com.br/ojs/index.php/BJHR/article/view/60590. Acesso em: 24 sep. 2024.',
+      referenceText: `1. Van Hylckama Vlieg A, Helmerhorst FM, Vandenbroucke JP, Doggen CJ, Rosendaal
+FR. The venous thrombotic risk of oral contraceptives, effects of oestrogen dose and
+progestogen type: results of the MEGA case-control study. BMJ. 2009 Aug
+13;339:b2921.${'\n'}2. Reed S, Koro C, DiBello J, Becker K, Bauerfeind A, Franke C, Heinemann K.
+Prospective controlled cohort study on the safety of a monophasic oral
+contraceptive containing nomegestrol acetate (2.5mg) and 17β-oestradiol (1.5mg)
+(PRO-E2 study): risk of venous and arterial thromboembolism. Eur J Contracept
+Reprod Health [note continued from right margin...] Care. 2021 Dec;26(6):439-446.`,
       explanation:
-        'Existem estudos que mostram um pequeno aumento no risco de trombose em usuárias de contraceptivos que contenham estrogênio e progesterona. No entanto, esse risco é baixo e, a depender da composição, é muito semelhante ao risco das não usuárias de contraceptivos.',
+        'Estudos mostram um pequeno aumento no risco de trombose em usuárias de contraceptivos com estrogênio e progesterona, mas o risco é baixo e comparável ao de não usuárias, dependendo da composição.',
     },
     {
       id: 6,
       texto: 'Hormônios impactam na saúde mental e no humor.',
       resposta: 'VERDADEIRO',
       referenceText:
-        'Van Hylckama Vlieg A, Helmerhorst FM, Vandenbroucke JP, Doggen CJM, Rosendaal FR. The venous thrombotic risk of oral contraceptives, effects of oestrogen dose and progestogen type: results of the MEGA case-control study. BMJ. 2009;339:b2921.',
+        '1. Santos RL, Barbosa ALO, Santana AL, Farias JVC, Macêdo PR, Farias ICC. The risks of prolonged use of hormonal contraceptives. Research, Society and Development, [S. l.], v. 9, n. 11, p. e69791110394, 2020.',
       explanation:
         'O uso de contraceptivos hormonais pode levar a alterações de humor.',
     },
     {
       id: 7,
-      texto:
-        'Quem toma a pílula anticoncepcional por muito tempo pode ficar infértil.',
-      resposta: 'FALSO',
-      referenceText:
-        'Reed S, Koro C, DiBello J, et al. Prospective controlled nomegestrol acaetate (2,5mg) and 17β estradiol (1,5mg) (PRO-E2 study): risk of thromoboembolism Eur. J. Contracep Reprod Health Care. 2021; 26(6):439-46.',
-      explanation:
-        'Não há qualquer comprovação científica de que o uso de contraceptivos hormonais leva à infertilidade, e muitas vezes, eles são usados no tratamento de disfunções hormonais.',
-    },
-    {
-      id: 8,
       texto: 'O mesmo método contraceptivo serve para todas as mulheres.',
       resposta: 'FALSO',
-      referenceText:
-        'SANTOS, R. L. dos; BARBOSA, A. de L. de O.; SANTANA, A. L. .; FARIAS, J. V. C.; MACÊDO, P. R. de .; FARIAS, I. C. C. . The risks of prolonged use of hormonal contraceptives. Research, Society and Development, [S. l.], v. 9, n. 11, p. e69791110394, 2020. DOI: 10.33448/rsd-v9i11.10394. Disponível em: https://rsdjournal.org/index.php/rsd/article/view/10394. Acesso em: 24 sep. 2024',
+      referenceText: `1. Vieira CS, Oliveira LCO de, Sá MFS de. Hormônios femininos e hemostasia. Rev Bras Ginecol Obstet . 2007Oct;29(10):538–47.${'\n'}2. WORLD HEALTH ORGANIZATION. Medical eligibility criteria for contraceptive use. 5th ed. Geneva: WHO [internet]. 2015. [Acesso em: 04Out2024]. Disponível em: https://www.who.int/publications/i/item/9789241549158`,
       explanation:
         'O tratamento deve ser individualizado e baseado nas recomendações da Organização Mundial de Saúde.',
     },
     {
-      id: 9,
+      id: 8,
       texto: 'A pílula pode ser uma aliada para controlar os sintomas de TPM.',
       resposta: 'VERDADEIRO',
       referenceText:
-        'https://sbra.com.br/noticias/anticoncepcional-entenda-a-relacao-entre-o-contraceptivo-a-fertilidade-da-mulher/',
+        '1. Federação Brasileira das Associações de Ginecologia e Obstetrícia. Manual de anticoncepção. [internet]. São Paulo: FEBRASGO; 2015. [Acesso em 25set/2024] - 4 (cont) –',
       explanation:
-        'A pílula, além de prevenir uma gestação indesejada, pode ser utilizada no tratamento de sintomas da TPM e outras doenças.',
+        'Algumas pílulas, além de prevenir uma gestação indesejada, pode ser utilizada no tratamento de sintomas da TPM e outras doenças.',
     },
     {
-      id: 10,
+      id: 9,
       texto:
         'Existem métodos contraceptivos que ajudam no controle da acne e espinhas.',
       resposta: 'VERDADEIRO',
       referenceText:
-        'Vieira CS et al. Female hormones and hemostasis. Rev. Bras. Ginecol. Obstet, 2007: 29 (10).',
+        '1. Síndrome dos ovários policísticos. 3a ed. São Paulo: Federação Brasileira das Associações de Ginecologia e Obstetrícia (FEBRASGO); 2023. 140p. (Série Orientações e Recomendações FEBRASGO, n.1, Comissão Nacional de Ginecologia Endócrina).',
       explanation:
         'As pílulas com progestagênios antiandrogênicos (que bloqueiam o receptor de testosterona) são usadas no controle da acne.',
     },
     {
-      id: 11,
+      id: 10,
       texto:
         'A Pílula do Dia Seguinte pode ser utilizada toda vez que eu tiver alguma relação sexual.',
       resposta: 'FALSO',
       referenceText:
-        'WORLD HEALTH ORGANIZATION. Medical eligibility criteria for contraceptive use. 5th ed. Geneva: WHO, 2015.',
+        '1. Federação Brasileira das Associações de Ginecologia e Obstetrícia (FEBRASGO). Anticoncepcional hormonal apenas de progestagênio e anticoncepção de emergência. São Paulo: FEBRASGO; 2021. (Protocolo FEBRASGOGinecologia, no 66/ Comissão Nacional Especializada em Anticoncepção).',
       explanation:
         'A pílula do dia seguinte deve ser utilizada caso a mulher tenha uma relação desprotegida ou falha do método contraceptivo utilizado (ex: esqueceu de tomar 2 ou mais pílulas).',
     },
     {
-      id: 12,
+      id: 11,
       texto: 'Existem contraceptivos com “hormônio mais natural”.',
       resposta: 'VERDADEIRO',
       referenceText:
-        'Federação Brasileira das Associações de Ginecologia e Obstetrícia. Manual de anticoncepção. [internet]. São Paulo: FEBRASGO; 2015. [Acesso em 25set/2024].',
+        '1. Sociedade Brasileira de Endocrinologia e Metabologia. Hormônios Bioidênticos [internet]. São Paulo: SBEM; 2010. [Acesso em: 04Out2024]. Disponível em: https://www.endocrino.org.br/hormonios-bioidenticos/',
       explanation:
         'São os Hormônios Bioidênticos, substâncias hormonais que possuem exatamente a mesma estrutura química e molecular encontrada nos hormônios produzidos no corpo humano.',
     },
     {
-      id: 13,
+      id: 12,
       texto:
         'Ter câncer ou histórico de câncer na família é impeditivo para fazer terapia hormonal?',
       resposta: 'FALSO',
       referenceText:
-        'Síndrome dos ovários policísticos. 3a ed. São Paulo: Federação Brasileira das Associações de Ginecologia e Obstetrícia (FEBRASGO); 2023. 140p. (Série Orientações e Recomendações FEBRASGO, n.1, Comissão Nacional de Ginecologia Endócrina).',
+        '1. Machado RB, Pompei LM et al. Consenso Brasileiro de Terapêutica Hormonal da Menopausa – Associação Brasileira de Climatério (SOBRAC) – São Paulo: ALEF Editora, 2024. [Juliana Fernandes Romera]',
       explanation:
-        'Somente pacientes com cânceres sensíveis ao estrogênio (ex: mama) têm contra-indicação para terapia hormonal. Histórico de câncer na família não contra-indica o tratamento.',
+        'Somente pacientes com cânceres sensíveis ao estrogênio (ex: mama) tem contra-indicação para terapia hormonal. Histórico de câncer na família não contra-indica o tratamento.',
     },
     {
-      id: 14,
+      id: 13,
       texto: 'A menopausa só chega após os 50 anos.',
       resposta: 'FALSO',
       referenceText:
-        'Federação Brasileira das Associações de Ginecologia e Obstetrícia (FEBRASGO). Anticoncepcional hormonal apenas de progestagênio e anticoncepção de emergência. São Paulo: FEBRASGO; 2021. (Protocolo FEBRASGO-Ginecologia, no 66/ Comissão Nacional Especializada em Anticoncepção).',
+        '1. Baccaro LF, Paiva LH, Nasser EJ, Valadares AL, Silva CR, Nahas EA, et al. Propedêutica mínima no climatério. FEBRASGO POSITION STATEMENT, 2022: 5.',
       explanation:
         'A definição da data da menopausa é feita retrospectivamente, após 12 meses sem sangramento em uma mulher com mais de 45 anos.',
     },
     {
-      id: 15,
+      id: 14,
       texto:
         'Existem muitos efeitos colaterais na terapia de reposição hormonal.',
       resposta: 'FALSO',
       referenceText:
-        'Machado RB, Pompei LM et al. Consenso Brasileiro de Terapêutica Hormonal da Menopausa – Associação Brasileira de Climatério (SOBRAC) – São Paulo: ALEF Editora, 2024.',
+        '1. Machado RB, Pompei LM et al. Consenso Brasileiro de Terapêutica Hormonal da Menopausa – Associação Brasileira de Climatério (SOBRAC) – São Paulo: ALEF Editora, 2024. [Juliana Fernandes Romera]',
       explanation:
         'Atualmente, a recomendação é iniciar a terapia hormonal com a menor dose efetiva capaz de aliviar os sintomas com menor risco de eventos adversos.',
     },
     {
-      id: 16,
+      id: 15,
       texto: 'Terapia de reposição hormonal ajuda a prevenir a osteoporose.',
       resposta: 'VERDADEIRO',
       referenceText:
-        'Baccaro LF, Paiva LH, Nasser EJ, Valadares AL, Silva CR, Nahas EA, et al. Propedêutica mínima no climatério. FEBRASGO POSITION STATEMENT, 2022: 5.',
+        '1. Machado RB, Pompei LM et al. Consenso Brasileiro de Terapêutica Hormonal da Menopausa – Associação Brasileira de Climatério (SOBRAC) – São Paulo: ALEF Editora, 2024. [Juliana Fernandes Romera]',
       explanation:
         'Os estrogênios inibem a reabsorção óssea, com repercussão importante na massa óssea e no risco de fraturas.',
     },
     {
-      id: 17,
+      id: 16,
       texto:
         'A Fitoterapia pode ajudar a aliviar os sintomas da menopausa tanto quanto a terapia de reposição hormonal.',
       resposta: 'FALSO',
-      referenceText: '',
+      referenceText:
+        '1. Machado RB, Pompei LM et al. Consenso Brasileiro de Terapêutica Hormonal da Menopausa – Associação Brasileira de Climatério (SOBRAC) – São Paulo: ALEF Editora, 2024. [Juliana Fernandes Romera]',
       explanation:
         'Não há evidência concreta de que os fitoestrogênios efetivamente reduzem os fogachos e suores noturnos em mulheres climatéricas, sendo a terapia hormonal a primeira indicação.',
     },
     {
-      id: 18,
+      id: 17,
       texto:
         'A terapia de reposição hormonal pode aumentar o risco de doenças cardiovasculares em mulheres.',
       resposta: 'FALSO',
-      referenceText: '',
+      referenceText:
+        '1. Machado RB, Pompei LM et al. Consenso Brasileiro de Terapêutica Hormonal da Menopausa – Associação Brasileira de Climatério (SOBRAC) – São Paulo: ALEF Editora, 2024. [Juliana Fernandes Romera]',
       explanation:
-        'A terapia hormonal, quando iniciada até 10 anos após a menopausa ou 60 anos de idade, diminui o risco cardiovascular em mulheres.',
+        'A terapia hormonal, quando iniciada até 10 anos da menopausa ou antes dos 60 anos de idade diminui o risco cardiovascular em mulheres.',
     },
     {
-      id: 19,
-      texto:
-        'Preciso desintoxicar o corpo depois de um período utilizando contraceptivos.',
-      resposta: 'FALSO',
-      referenceText: '',
-      explanation:
-        'Não há nenhum consenso que oriente a necessidade de desintoxicar o corpo após uso de contraceptivos.',
-    },
-    {
-      id: 20,
+      id: 18,
       texto:
         'A terapia hormonal da menopausa pode ser usada por no máximo 5 anos.',
       resposta: 'FALSO',
-      referenceText: '',
+      referenceText:
+        '1. Machado RB, Pompei LM et al. Consenso Brasileiro de Terapêutica Hormonal da Menopausa – Associação Brasileira de Climatério (SOBRAC) – São Paulo: ALEF Editora, 2024. [Juliana Fernandes Romera]',
       explanation:
-        'Não há um limite fixo ou duração máxima pré-estabelecida para o uso da terapia hormonal e nem mesmo uma idade máxima em que deva ser suspensa.',
+        'Não há um limite fixo ou duração máxima pré-estabelecida para a uso da TH e nem mesmo uma idade máxima em que deva ser suspensa.',
     },
+    // {
+    //   id: 19,
+    //   texto:
+    //     'Preciso desintoxicar o corpo depois de um período utilizando contraceptivos.',
+    //   resposta: 'FALSO',
+    //   referenceText: '1. ',
+    //   explanation:
+    //     'Não há nenhum consenso que oriente a necessidade de desintoxicar o corpo após uso de contraceptivos.',
+    // },
+    // {
+    //   id: 20,
+    //   texto:
+    //     'A terapia hormonal da menopausa pode ser usada por no máximo 5 anos.',
+    //   resposta: 'FALSO',
+    //   referenceText: '1. ',
+    //   explanation:
+    //     'Não há um limite fixo ou duração máxima pré-estabelecida para o uso da terapia hormonal e nem mesmo uma idade máxima em que deva ser suspensa.',
+    // },
   ];
 
   const poses = [
@@ -385,7 +395,6 @@ const QuizApp = () => {
   return (
     <View style={styles.container} onLayout={onLayoutRootView}>
       <StatusBar hidden={true} />
-      {/* <SafeAreaView style={styles.container} onLayout={onLayoutRootView}> */}
       {currentScreen === 'telaInicial' && (
         <TouchableOpacity
           style={styles.container}
@@ -538,14 +547,14 @@ const QuizApp = () => {
           <View style={styles.answerResult}>
             <TouchableOpacity
               style={styles.buttonVerdadeiro}
-              onPress={() => verificarResposta('Verdadeiro')}
+              onPress={() => verificarResposta('VERDADEIRO')}
               disabled={botaoDesativado}
             >
               <Text style={styles.buttonTextVerdadeiro}>Verdadeiro</Text>
             </TouchableOpacity>
             <TouchableOpacity
               style={styles.buttonFalso}
-              onPress={() => verificarResposta('Falso')}
+              onPress={() => verificarResposta('FALSO')}
               disabled={botaoDesativado}
             >
               <Text style={styles.buttonText}>Falso</Text>
@@ -965,8 +974,6 @@ const styles = StyleSheet.create({
   container: {
     height: '100%',
     position: 'relative',
-    // marginTop: -15,
-    // fontFamily: 'EzraRegular',
   },
   //TELA GESTAO
   gestaoContainer: {
@@ -991,7 +998,6 @@ const styles = StyleSheet.create({
     position: 'absolute',
     top: 2,
     left: 2,
-    // backgroundColor: '#ccc',
     backgroundColor: 'transparent',
     padding: 25,
     borderRadius: 15,
@@ -1002,7 +1008,6 @@ const styles = StyleSheet.create({
     position: 'absolute',
     top: 2,
     right: 2,
-    // backgroundColor: '#ccc',
     backgroundColor: 'transparent',
     padding: 25,
     borderRadius: 15,
@@ -1033,7 +1038,6 @@ const styles = StyleSheet.create({
     position: 'absolute',
     top: 0,
     right: 0,
-    // left: 503,
   },
   uniqueImage: {
     position: 'absolute',
@@ -1045,7 +1049,6 @@ const styles = StyleSheet.create({
     zIndex: 100,
   },
   conteudo: {
-    // height: '60%',
     height: '70%',
     alignItems: 'center',
     justifyContent: 'center',
@@ -1072,12 +1075,10 @@ const styles = StyleSheet.create({
     backgroundColor: '#f8e2dd',
   },
   wavesImage: {
-    // bottom: 105,
     position: 'absolute',
     height: 210,
     width: 140,
     bottom: 105,
-    // bottom: 120,
     zIndex: 1,
   },
   flexCol: {
@@ -1085,17 +1086,13 @@ const styles = StyleSheet.create({
     backgroundColor: '#f8e2dd',
   },
   secondRectangle: {
-    // width: 380,
     width: 480,
     height: 140,
-    // height: 124,
     backgroundColor: '#f174ac',
   },
   thirdRectangle: {
-    // width: 380,
     width: 480,
     height: 140,
-    // height: 124,
     backgroundColor: '#cbbed9',
   },
   secondSquare: {
@@ -1105,40 +1102,30 @@ const styles = StyleSheet.create({
   },
   buttonVerdadeiro: {
     width: 600,
-    // width: 450,
     height: 90,
-    // height: 60,
     backgroundColor: '#7dc4aa',
     borderRadius: 60,
-    // borderRadius: 30,
     justifyContent: 'center',
     alignItems: 'center',
     marginTop: 20,
   },
   buttonFalso: {
     width: 600,
-    // width: 450,
     height: 90,
-    // height: 60,
     backgroundColor: '#c24242',
     borderRadius: 60,
-    // borderRadius: 30,
     justifyContent: 'center',
     alignItems: 'center',
     marginTop: 20,
   },
   buttonTextVerdadeiro: {
     fontSize: 38,
-    // fontSize: 28,
-    // fontWeight: 'bold',
     fontFamily: 'EzraSemiBold',
     color: '#3e4a4f',
   },
   buttonText: {
     fontSize: 38,
-    // fontSize: 28,
     fontFamily: 'EzraSemiBold',
-    // fontWeight: 'bold',
     color: '#fff',
   },
   title: {
@@ -1222,7 +1209,6 @@ const styles = StyleSheet.create({
   //TELA DESCANSO
   containerDescanso: {
     height: '103%',
-    // height: '100%',
     backgroundColor: '#90b9d3',
     position: 'relative',
     width: '100%',
@@ -1232,18 +1218,13 @@ const styles = StyleSheet.create({
     position: 'absolute',
     top: -50,
     left: 0,
-    // top: -30,
     width: 220,
     height: 220,
-    // width: 140,
-    // height: 140,
     resizeMode: 'contain',
     alignSelf: 'flex-start',
   },
   conteudoDescanso: {
     position: 'absolute',
-    // top: 90,
-    // top: 180,
     top: 160,
     width: '95%',
     alignItems: 'center',
@@ -1258,43 +1239,32 @@ const styles = StyleSheet.create({
     top: 28,
   },
   heading: {
-    // fontSize: 40,
     fontSize: 35,
     textAlign: 'left',
     width: '65%',
-    // width: '73%',
     color: '#512b7d',
     fontFamily: 'EzraSemiBold',
-    // lineHeight: 60,
     lineHeight: 50,
   },
   descansoFirst: {
     fontFamily: 'EzraSemiBold',
     fontSize: 25,
-    // fontSize: 30,
     width: '71%',
-    // width: '85%',
     color: '#512b7d',
-    // marginTop: 10,
     marginTop: 20,
-    // fontWeight: 'bold',
     textAlign: 'left',
     marginLeft: 50,
     lineHeight: 34,
-    // lineHeight: 30,
   },
   rulesContainer: {
     textAlign: 'left',
     width: '64%',
     marginTop: 40,
-    // marginTop: 60,
     gap: 15,
   },
   headerRules: {
     fontSize: 25,
-    // fontSize: 30,
     color: '#512b7d',
-    // fontWeight: 'bold',
     lineHeight: 30,
     fontFamily: 'EzraSemiBold',
     marginBottom: 20,
@@ -1307,22 +1277,17 @@ const styles = StyleSheet.create({
   },
   buttonDescanso: {
     width: 500,
-    // width: 350,
     height: 90,
-    // height: 60,
     borderRadius: 100,
     backgroundColor: '#da1278',
     justifyContent: 'center',
     alignItems: 'center',
     marginTop: 20,
-    // marginTop: 40,
   },
   buttonTextDescanso: {
     fontSize: 35,
-    // fontSize: 25,
     color: 'white',
     fontFamily: 'EzraSemiBold',
-    // fontWeight: 'bold',
   },
   bottomImages: {
     position: 'absolute',
@@ -1337,25 +1302,19 @@ const styles = StyleSheet.create({
     bottom: 45,
     left: 0,
     width: 60,
-    // width: 40,
     height: 120,
-    // height: 100,
   },
   rectangle2: {
     position: 'absolute',
     bottom: -10,
-    // bottom: 0,
     left: 0,
     height: 60,
-    // height: 50,
     width: '87%',
-    // width: '82%',
   },
   unique2: {
     position: 'absolute',
     right: -35,
     bottom: -15,
-    // bottom: -60,
     width: 130,
     height: 155,
   },
@@ -1379,7 +1338,6 @@ const styles = StyleSheet.create({
   purpleSquare: {
     backgroundColor: '#cbbdda',
     width: 500,
-    // width: 380,
     height: 221,
   },
   flexContainer2: {
@@ -1396,18 +1354,14 @@ const styles = StyleSheet.create({
   },
   tituloPergunta: {
     fontSize: 28,
-    // fontSize: 20,
-    // fontWeight: 'bold',
     color: '#617179',
     alignSelf: 'flex-end',
     fontFamily: 'EzraSemiBold',
   },
   subtitle: {
     fontSize: 28,
-    // fontSize: 22,
     color: '#617179',
     fontFamily: 'EzraSemiBold',
-    // fontWeight: 'bold',
   },
   pinkSquare: {
     width: 300,
@@ -1426,10 +1380,8 @@ const styles = StyleSheet.create({
   },
   textoPergunta: {
     fontSize: 38,
-    // fontSize: 28,
     fontWeight: 'bold',
     lineHeight: 42,
-    // lineHeight: 32,
     textAlign: 'center',
     color: '#511181',
     marginHorizontal: '10%',
@@ -1438,7 +1390,6 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     alignItems: 'center',
     marginTop: 40,
-    // marginTop: 20,
   },
   containerResult: {
     flexDirection: 'row',
@@ -1457,21 +1408,15 @@ const styles = StyleSheet.create({
     bottom: 0,
     left: 0,
     width: 140,
-    // width: 100,
     height: 140,
-    // height: 100,
     resizeMode: 'contain',
   },
   rectangle28: {
     position: 'absolute',
     bottom: 35,
-    // bottom: 25,
     left: 145,
-    // left: 105,
     width: 250,
-    // width: 180,
     height: 95,
-    // height: 70,
     tintColor: '#da1278',
   },
   rectangle25: {
@@ -1479,9 +1424,7 @@ const styles = StyleSheet.create({
     bottom: -15,
     right: 0,
     width: 405,
-    // width: 315,
     height: 50,
-    // height: 35,
   },
   //TELA RESPOSTA
   flexContainerResponse: {
@@ -1490,13 +1433,10 @@ const styles = StyleSheet.create({
   },
   pinkSquareResponse: {
     width: 100,
-    // width: 120,
-    // height: 80,
     height: 60,
   },
   rectangleResponse: {
     width: '100%',
-    // height: 40,
     height: 20,
   },
   rectangleResponse2: {
@@ -1504,56 +1444,43 @@ const styles = StyleSheet.create({
     height: 40,
     position: 'absolute',
     bottom: 0,
-    // height: 20,
   },
   uniqueResponse: {
     width: 186,
-    // width: 250,
     height: 113,
-    // height: 152,
     position: 'absolute',
     right: 80,
     top: 0,
-    // top: 20,
   },
   answerResposta: {
     fontSize: 40,
-    // fontWeight: 'bold',
     fontFamily: 'EzraSemiBold',
     color: '#511181',
     marginBottom: 30,
-    // marginBottom: 10,
   },
   explanation: {
-    // fontSize: 24,
     fontSize: 20,
     lineHeight: 32,
     fontFamily: 'EzraRegular',
-    // lineHeight: 32,
     color: '#511181',
     width: '100%',
-    // width: '65%',
   },
   conteudoResposta: {
     paddingTop: 30,
     height: '100%',
     marginHorizontal: '10%',
-    // flex: 1,
-    // alignItems: 'center', // Center children horizontally
   },
   nextQuestionButton: {
     position: 'absolute',
     bottom: 200,
     width: '100%',
     height: 75,
-    // height: 65,
     fontSize: 46,
     backgroundColor: '#511181',
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 45,
-    // borderRadius: 35,
     paddingHorizontal: 40,
   },
   dash: {
@@ -1563,7 +1490,6 @@ const styles = StyleSheet.create({
     height: 3,
     position: 'absolute',
     left: -60,
-    // top: 135,
     top: 115,
   },
   footer: {
@@ -1582,8 +1508,6 @@ const styles = StyleSheet.create({
     position: 'absolute',
     bottom: 280,
     left: 50,
-    // marginTop: -30,
-    // alignSelf: 'center',
   },
   buttonReference: {
     width: 200,
@@ -1608,18 +1532,14 @@ const styles = StyleSheet.create({
     color: '#511181',
     fontSize: 18,
     fontFamily: 'EzraSemiBold',
-    // fontWeight: 'bold',
   },
   //TELA FECHAMENTO
   uniqueImageFechamento: {
     position: 'absolute',
     top: 10,
     right: -44,
-    // left: 490,
     height: 210,
-    // height: 140,
     width: 210,
-    // width: 140,
     zIndex: 100,
   },
   inicioImageFechamento: {
@@ -1632,13 +1552,11 @@ const styles = StyleSheet.create({
   rectangleFechamento: {
     width: 680,
     height: 120,
-    // height: 93,
     marginLeft: 125,
     backgroundColor: '#f174ac',
   },
   conteudoFechamento: {
     height: '78%',
-    // height: '78%',
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
@@ -1659,9 +1577,7 @@ const styles = StyleSheet.create({
   textoObrigado: {
     fontSize: 42,
     fontFamily: 'EzraSemiBold',
-    // fontWeight: 'bold',
     alignSelf: 'center',
-    // width: '20%',
     textAlign: 'left',
     color: '#7e458c',
     lineHeight: 60,
@@ -1685,9 +1601,7 @@ const styles = StyleSheet.create({
   arrecadadosNumber: {
     color: '#7e458c',
     fontSize: 50,
-    // fontSize: 40,
     fontFamily: 'EzraSemiBold',
-    // fontWeight: 'bold',
   },
   qrCodeContainer: {
     display: 'flex',
@@ -1707,7 +1621,6 @@ const styles = StyleSheet.create({
     fontSize: 14,
     color: '#7e458c',
     fontFamily: 'EzraSemiBold',
-    // fontWeight: 'bold',
     width: '55%',
     marginTop: 10,
   },
@@ -1716,7 +1629,6 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     height: '15%',
     position: 'absolute',
-    // bottom: 0,
     bottom: -30,
   },
   thirdSquare: {
@@ -1754,7 +1666,6 @@ const styles = StyleSheet.create({
     position: 'absolute',
     textAlign: 'center',
     bottom: 30,
-    // bottom: 50,
     width: '100%',
     lineHeight: 20,
   },
