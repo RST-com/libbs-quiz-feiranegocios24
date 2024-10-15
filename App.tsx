@@ -73,7 +73,7 @@ const QuizApp = () => {
     Osório; Fernandes, César Eduardo. Consenso Brasileiro de Terapêutica Hormonal da
     Menopausa – Associação Brasileira de Climatério (SOBRAC) – São Paulo: Leitura
     Médica, 2018.`,
-      explanation: `Em pesquisa com 1,8 milhões de mulheres usuárias de contraceptivos hormonais realizada na Dinamarca, houve um caso a mais de câncer do que o esperado para cada 7.690 usuárias de anticoncepcionais hormonais. No entanto, os contraceptivos hormonais protegem contra os cânceres de ovário, endométrio e colorretal.^1 O risco de câncer de mama associado ao uso da terapia hormonal é pequeno, com incidência anual de menos aproximadamente um caso por 1.000 mulheres.^2`,
+      explanation: `Em pesquisa com 1,8 milhões de mulheres usuárias de contraceptivos hormonais realizada na Dinamarca, houve um caso a mais de câncer do que o esperado para cada 7.690 usuárias de anticoncepcionais hormonais. No entanto, os contraceptivos hormonais protegem contra os cânceres de ovário, endométrio e colorretal.^1 O risco de câncer de mama associado ao uso da terapia hormonal é pequeno, com incidência anual de aproximadamente um caso por 1.000 mulheres.^2`,
     },
     {
       id: 3,
@@ -106,7 +106,7 @@ const QuizApp = () => {
     (PRO-E2 study): risk of venous and arterial thromboembolism. Eur J Contracept
     Reprod Health [note continued from right margin...] Care. 2021 Dec;26(6):439-446.`,
       explanation:
-        'Existem estudos que mostram um pequeno aumento no risco de trombose em usuárias de contraceptivos que contenham estrogênio e progesterona. No entanto, esse risco é baixo e, a depender da composição é muito semelhante ao risco das não usuárias de contraceptivos.^1, ^2',
+        'Existem estudos que mostram aumento no risco de trombose em usuárias de contraceptivos que contenham estrogênio e progesterona. No entanto, esse risco é baixo e, a depender da composição é muito semelhante ao risco das não usuárias de contraceptivos.^1, ^2',
     },
     {
       id: 6,
