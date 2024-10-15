@@ -712,7 +712,7 @@ Reprod Health [note continued from right margin...] Care. 2021 Dec;26(6):439-446
             </TouchableOpacity>
           </View>
           <View style={styles.footer}>
-            <Text
+            {/* <Text
               style={{
                 fontSize: 11,
                 color: '#333',
@@ -720,8 +720,8 @@ Reprod Health [note continued from right margin...] Care. 2021 Dec;26(6):439-446
               }}
             >
               Outubro/2024
-            </Text>
-            <Text
+            </Text> */}
+            {/* <Text
               style={{
                 fontSize: 11,
                 color: '#333',
@@ -730,7 +730,7 @@ Reprod Health [note continued from right margin...] Care. 2021 Dec;26(6):439-446
             >
               - Material destinado a profissionais de saúde habilitados a
               dispensar e/ou prescrever medicamentos.
-            </Text>
+            </Text> */}
             <Text
               style={{
                 fontSize: 11,
@@ -831,7 +831,7 @@ Reprod Health [note continued from right margin...] Care. 2021 Dec;26(6):439-446
               </Text>
             </View> */}
 
-            <View style={styles.footerFechamento}>
+            {/* <View style={styles.footerFechamento}>
               <Text
                 style={{
                   fontSize: 11,
@@ -840,8 +840,8 @@ Reprod Health [note continued from right margin...] Care. 2021 Dec;26(6):439-446
                 }}
               >
                 Outubro/2024
-              </Text>
-              <Text
+              </Text> */}
+              {/* <Text
                 style={{
                   fontSize: 11,
                   color: '#333',
@@ -850,7 +850,7 @@ Reprod Health [note continued from right margin...] Care. 2021 Dec;26(6):439-446
               >
                 - Material destinado a profissionais de saúde habilitados a
                 dispensar e/ou prescrever medicamentos.
-              </Text>
+              </Text> */}
               <Text
                 style={{
                   fontSize: 11,
