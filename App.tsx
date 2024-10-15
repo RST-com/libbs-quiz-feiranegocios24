@@ -11,6 +11,7 @@ import {
 } from 'react-native';
 import { useFonts } from 'expo-font';
 import * as SplashScreen from 'expo-splash-screen';
+import TextoComExpoente from './TextoComExpoente ';
 
 SplashScreen.preventAutoHideAsync();
 
@@ -50,6 +51,8 @@ const QuizApp = () => {
   const [accumulatedValue, setAccumulatedValue] = useState(0);
   const [temporaryValue, setTemporaryValue] = useState(accumulatedValue);
   const [botaoDesativado, setBotaoDesativado] = useState(false);
+  const [porcentagem, setPorcentagem] = useState(0);
+  const valorTotal = 10000;
 
   const perguntas = [
     {
@@ -70,8 +73,7 @@ const QuizApp = () => {
 Osório; Fernandes, César Eduardo. Consenso Brasileiro de Terapêutica Hormonal da
 Menopausa – Associação Brasileira de Climatério (SOBRAC) – São Paulo: Leitura
 Médica, 2018.`,
-      explanation:
-        'Em pesquisa com 1,8 milhões de mulheres usuárias de contraceptivos hormonais realizada na Dinamarca, houve um caso a mais de câncer do que o esperado para cada 7.690 usuárias de anticoncepcionais hormonais. No entanto, os contraceptivos hormonais protegem contra os cânceres de ovário, endométrio e colorretal.',
+      explanation: `Em pesquisa com 1,8 milhões de mulheres usuárias de contraceptivos hormonais realizada na Dinamarca, houve um caso a mais de câncer do que o esperado para cada 7.690 usuárias de anticoncepcionais hormonais. No entanto, os contraceptivos hormonais protegem contra os cânceres de ovário, endométrio e colorretal.^1 O risco de câncer de mama associado ao uso da terapia hormonal é pequeno, com incidência anual de menos aproximadamente um caso por 1.000 mulheres.^2`,
     },
     {
       id: 3,
@@ -104,7 +106,7 @@ contraceptive containing nomegestrol acetate (2.5mg) and 17β-oestradiol (1.5mg)
 (PRO-E2 study): risk of venous and arterial thromboembolism. Eur J Contracept
 Reprod Health [note continued from right margin...] Care. 2021 Dec;26(6):439-446.`,
       explanation:
-        'Estudos mostram um pequeno aumento no risco de trombose em usuárias de contraceptivos com estrogênio e progesterona, mas o risco é baixo e comparável ao de não usuárias, dependendo da composição.',
+        'Existem estudos que mostram um pequeno aumento no risco de trombose em usuárias de contraceptivos que contenham estrogênio e progesterona. No entanto, esse risco é baixo e, a depender da composição é muito semelhante ao risco das não usuárias de contraceptivos.^1, ^2',
     },
     {
       id: 6,
@@ -121,7 +123,7 @@ Reprod Health [note continued from right margin...] Care. 2021 Dec;26(6):439-446
       resposta: 'FALSO',
       referenceText: `1. Vieira CS, Oliveira LCO de, Sá MFS de. Hormônios femininos e hemostasia. Rev Bras Ginecol Obstet . 2007Oct;29(10):538–47.${'\n'}2. WORLD HEALTH ORGANIZATION. Medical eligibility criteria for contraceptive use. 5th ed. Geneva: WHO [internet]. 2015. [Acesso em: 04Out2024]. Disponível em: https://www.who.int/publications/i/item/9789241549158`,
       explanation:
-        'O tratamento deve ser individualizado e baseado nas recomendações da Organização Mundial de Saúde.',
+        'O tratamento deve ser individualizado e baseado nas recomendações da Organização Mundial de Saúde.^1, ^2',
     },
     {
       id: 8,
@@ -308,14 +310,19 @@ Reprod Health [note continued from right margin...] Care. 2021 Dec;26(6):439-446
   };
 
   const carregarPergunta = () => {
+    setBotaoDesativado(false);
     setMostrarRightResult(false);
     setMostrarWrongResult(false);
     if (perguntaAtual + 1 < perguntasSelecionadas.length) {
-      // setPerguntaAtual(perguntaAtual + 1);
       setCurrentScreen('telaPergunta');
     } else {
       setPerguntaAtual(0);
-      setAccumulatedValue((prevValue) => prevValue + 2);
+      setAccumulatedValue((prevValue) => {
+        const novoValorAcumulado = prevValue + 20;
+        const porcentagem = (novoValorAcumulado / valorTotal) * 100;
+        setPorcentagem(porcentagem);
+        return novoValorAcumulado;
+      });
       setCurrentScreen('telaFechamento');
     }
   };
@@ -333,9 +340,7 @@ Reprod Health [note continued from right margin...] Care. 2021 Dec;26(6):439-446
       setMostrarRightResult(false);
       setMostrarWrongResult(true);
     }
-
-    // Add 2 reais to the counter for each round
-    // setAccumulatedValue((prevValue) => prevValue + 2);
+    setBotaoDesativado(true);
 
     // Move to the next question after 2 seconds
     setTimeout(() => {
@@ -346,7 +351,6 @@ Reprod Health [note continued from right margin...] Care. 2021 Dec;26(6):439-446
       }
       setMostrarRightResult(false);
       setMostrarWrongResult(false);
-      setBotaoDesativado(false);
     }, 2000);
   };
 
@@ -657,16 +661,13 @@ Reprod Health [note continued from right margin...] Care. 2021 Dec;26(6):439-446
               {/* Falso */}
               {perguntasSelecionadas[perguntaAtual].resposta}
             </Text>
-            <Text style={styles.explanation}>
-              {/* Em pesquisa com 1,8 milhões de mulheres usuárias de contraceptivos
-              hormonais realizada na Dinamarca, houve um caso a mais de câncer
-              do que o esperado para cada 7.690 usuárias de anticoncepcionais
-              hormonais. No entanto, os contraceptivos hormonais protegem contra
-              os cânceres de ovário, endométrio e colorretal.2 O risco de câncer
-              de mama associado ao uso da terapia hormonal é pequeno, com
-              incidência anual de menos de um caso por 1.000 mulheres. */}
+            {/* <Text style={styles.explanation}>
               {perguntasSelecionadas[perguntaAtual].explanation}
-            </Text>
+            </Text> */}
+            <TextoComExpoente
+              texto={perguntasSelecionadas[perguntaAtual].explanation}
+              style={styles.explanation}
+            />
             <TouchableOpacity
               style={styles.buttonReference}
               onPress={() => {
@@ -718,7 +719,7 @@ Reprod Health [note continued from right margin...] Care. 2021 Dec;26(6):439-446
                 fontFamily: 'EzraSemiBold',
               }}
             >
-              Setembro/2024
+              Outubro/2024
             </Text>
             <Text
               style={{
@@ -800,12 +801,26 @@ Reprod Health [note continued from right margin...] Care. 2021 Dec;26(6):439-446
                   {new Intl.NumberFormat('pt-BR', {
                     minimumFractionDigits: 2,
                     maximumFractionDigits: 2,
-                  }).format(accumulatedValue)}
+                  }).format(porcentagem)}
+                  %
                 </Text>
               </View>
+              <Text
+                style={{
+                  color: '#7e458c',
+                  fontFamily: 'EzraSemiBold',
+                  fontSize: 16,
+                }}
+              >
+                da nossa meta total de R${' '}
+                {new Intl.NumberFormat('pt-BR', {
+                  minimumFractionDigits: 2,
+                  maximumFractionDigits: 2,
+                }).format(valorTotal)}
+              </Text>
             </View>
 
-            <View style={styles.qrCodeContainer}>
+            {/* <View style={styles.qrCodeContainer}>
               <Image
                 style={styles.qrCodeImage}
                 source={require('./assets/imgs/qrCode.png')}
@@ -814,7 +829,7 @@ Reprod Health [note continued from right margin...] Care. 2021 Dec;26(6):439-446
                 Caso queira saber mais sobre a ONG que estamos ajudando acesse
                 pelo QR CODE
               </Text>
-            </View>
+            </View> */}
 
             <View style={styles.footerFechamento}>
               <Text
@@ -824,7 +839,7 @@ Reprod Health [note continued from right margin...] Care. 2021 Dec;26(6):439-446
                   fontFamily: 'EzraSemiBold',
                 }}
               >
-                Setembro/2024
+                Outubro/2024
               </Text>
               <Text
                 style={{
@@ -1468,7 +1483,7 @@ const styles = StyleSheet.create({
   conteudoResposta: {
     paddingTop: 30,
     height: '100%',
-    marginHorizontal: '10%',
+    marginHorizontal: '12%',
   },
   nextQuestionButton: {
     position: 'absolute',
@@ -1588,6 +1603,7 @@ const styles = StyleSheet.create({
     gap: 10,
     alignItems: 'flex-start',
     width: '54%',
+    marginBottom: 190,
   },
   arrecadasdosNumberContainer: {
     backgroundColor: '#cbbdda',
