@@ -70,9 +70,9 @@ const QuizApp = () => {
         'Os hormônios dos contraceptivos e terapias de reposição hormonal estão relacionados ao surgimento de câncer.',
       resposta: 'FALSO',
       referenceText: `1. Sociedade Brasileira de Mastologia. Anticoncepcionais aumentam o risco de câncer de mama [internet]. Rio de Janeiro: SBM. [Acesso em: 04Out2024]. Disponível em: https://www.sbmastologia.com.br/anticoncepcionaisaumentam-risco-de-cancerde-mama/${'\n'}2. Pompei, Luciano de Melo; Machado, Rogério Bonassi; Wender, Maria Celeste
-Osório; Fernandes, César Eduardo. Consenso Brasileiro de Terapêutica Hormonal da
-Menopausa – Associação Brasileira de Climatério (SOBRAC) – São Paulo: Leitura
-Médica, 2018.`,
+    Osório; Fernandes, César Eduardo. Consenso Brasileiro de Terapêutica Hormonal da
+    Menopausa – Associação Brasileira de Climatério (SOBRAC) – São Paulo: Leitura
+    Médica, 2018.`,
       explanation: `Em pesquisa com 1,8 milhões de mulheres usuárias de contraceptivos hormonais realizada na Dinamarca, houve um caso a mais de câncer do que o esperado para cada 7.690 usuárias de anticoncepcionais hormonais. No entanto, os contraceptivos hormonais protegem contra os cânceres de ovário, endométrio e colorretal.^1 O risco de câncer de mama associado ao uso da terapia hormonal é pequeno, com incidência anual de menos aproximadamente um caso por 1.000 mulheres.^2`,
     },
     {
@@ -98,13 +98,13 @@ Médica, 2018.`,
       texto: 'A pílula causa trombose.',
       resposta: 'FALSO',
       referenceText: `1. Van Hylckama Vlieg A, Helmerhorst FM, Vandenbroucke JP, Doggen CJ, Rosendaal
-FR. The venous thrombotic risk of oral contraceptives, effects of oestrogen dose and
-progestogen type: results of the MEGA case-control study. BMJ. 2009 Aug
-13;339:b2921.${'\n'}2. Reed S, Koro C, DiBello J, Becker K, Bauerfeind A, Franke C, Heinemann K.
-Prospective controlled cohort study on the safety of a monophasic oral
-contraceptive containing nomegestrol acetate (2.5mg) and 17β-oestradiol (1.5mg)
-(PRO-E2 study): risk of venous and arterial thromboembolism. Eur J Contracept
-Reprod Health [note continued from right margin...] Care. 2021 Dec;26(6):439-446.`,
+    FR. The venous thrombotic risk of oral contraceptives, effects of oestrogen dose and
+    progestogen type: results of the MEGA case-control study. BMJ. 2009 Aug
+    13;339:b2921.${'\n'}2. Reed S, Koro C, DiBello J, Becker K, Bauerfeind A, Franke C, Heinemann K.
+    Prospective controlled cohort study on the safety of a monophasic oral
+    contraceptive containing nomegestrol acetate (2.5mg) and 17β-oestradiol (1.5mg)
+    (PRO-E2 study): risk of venous and arterial thromboembolism. Eur J Contracept
+    Reprod Health [note continued from right margin...] Care. 2021 Dec;26(6):439-446.`,
       explanation:
         'Existem estudos que mostram um pequeno aumento no risco de trombose em usuárias de contraceptivos que contenham estrogênio e progesterona. No entanto, esse risco é baixo e, a depender da composição é muito semelhante ao risco das não usuárias de contraceptivos.^1, ^2',
     },
@@ -462,7 +462,7 @@ Reprod Health [note continued from right margin...] Care. 2021 Dec;26(6):439-446
               Participe do nosso game e ajude a fazer{'\n'}a diferença!
             </Text>
             <Text style={styles.descansoFirst}>
-              Bem-vindo ao EstroFacts!{'\n'}A cada participação, doaremos R$2
+              Bem-vindo ao EstroFacts!{'\n'}A cada participação, doaremos R$20
               para uma ONG que está transformando vidas. Além de se divertir,
               você contribui para uma causa nobre!
             </Text>
@@ -471,15 +471,16 @@ Reprod Health [note continued from right margin...] Care. 2021 Dec;26(6):439-446
               <View style={styles.headerRulesContainer}>
                 <Text style={styles.headerRules}>1.</Text>
                 <Text style={styles.headerRules}>
-                  Responda as 5 perguntas{'\n'}de vardedeiro ou falso
+                  Responda as 5 perguntas{'\n'}de verdadeiro ou falso
                 </Text>
               </View>
               <View style={styles.headerRulesContainer}>
                 <Text style={styles.headerRules}>2.</Text>
                 <Text style={styles.headerRules}>
-                  Ao final, você poderá{'\n'}conferir o valor já{'\n'}
+                  Ao final, você poderá conferir a porcentagem já arrecadada.
+                  {/* Ao final, você poderá{'\n'}conferir o valor já{'\n'}
                   arrecadado e saber{'\n'}mais sobre a ONG que{'\n'}está
-                  recebendo sua{'\n'}contribuição!
+                  recebendo sua{'\n'}contribuição! */}
                 </Text>
               </View>
             </View>
