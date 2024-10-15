@@ -831,8 +831,8 @@ Reprod Health [note continued from right margin...] Care. 2021 Dec;26(6):439-446
               </Text>
             </View> */}
 
-            {/* <View style={styles.footerFechamento}>
-              <Text
+            <View style={styles.footerFechamento}>
+              {/* <Text
                 style={{
                   fontSize: 11,
                   color: '#333',
@@ -840,7 +840,7 @@ Reprod Health [note continued from right margin...] Care. 2021 Dec;26(6):439-446
                 }}
               >
                 Outubro/2024
-              </Text> */}
+              </Text>  */}
               {/* <Text
                 style={{
                   fontSize: 11,
