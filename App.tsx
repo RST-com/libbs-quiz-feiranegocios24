@@ -794,7 +794,7 @@ const QuizApp = () => {
                   fontSize: 16,
                 }}
               >
-                Já arrecadados
+                Já arrecadamos
               </Text>
               <View style={styles.arrecadasdosNumberContainer}>
                 {/* //CONTADOR */}
